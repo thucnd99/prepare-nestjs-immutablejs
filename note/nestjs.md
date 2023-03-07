@@ -447,4 +447,5 @@ export class AppModule {}
     export class AppModule {}
     ```
 # Guards `@Injectable()`
-- 
+- Must implement `canActivate()`
+- Dont need `next()`
