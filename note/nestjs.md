@@ -446,6 +446,54 @@ export class AppModule {}
     })
     export class AppModule {}
     ```
-# Guards `@Injectable()`
+# Guards `@Injectable()` Guards are executed after all middleware, but before any interceptor or pipe.
 - Must implement `canActivate()`
 - Dont need `next()`
+- Scope: controlled-scope, method -> `@UseGuards()`
+    + global:
+    ```typescript
+    const app = await NestFactory.create(AppModule);
+    app.useGlobalGuards(new RolesGuard());
+    //or
+    //app.module.ts
+    import { Module } from '@nestjs/common';
+    import { APP_GUARD } from '@nestjs/core';
+
+    @Module({
+    providers: [
+        {
+        provide: APP_GUARD,
+        useClass: RolesGuard,
+        },
+    ],
+    })
+    export class AppModule {}
+    ```
+- Roles:
+    ```typescript
+    @Post()
+    @SetMetadata('roles', ['admin'])
+    async create(@Body() createCatDto: CreateCatDto) {
+        this.catsService.create(createCatDto);
+    }
+    ```
+    - With the construction above, we attached the roles metadata (roles is a key, while ['admin'] is a particular value) to the create() method. While this works, it's not good practice to use @SetMetadata() directly in your routes. Instead, create your own decorators, as shown below:
+    ```typescript
+    //roles.decorator.ts
+    import { SetMetadata } from '@nestjs/common';
+
+    export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
+    //in file controller
+    @Post()
+    @Roles('admin')
+    async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+    }
+    ```
+# Interceptors `@Injectable()`
+- Interceptors have a set of useful capabilities which are inspired by the Aspect Oriented Programming (AOP) technique. They make it possible to:
+    - bind extra logic before / after method execution
+    - transform the result returned from a function
+    - transform the exception thrown from a function
+    - extend the basic function behavior
+    - completely override a function depending on specific conditions (e.g., for caching purposes)
