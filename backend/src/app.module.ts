@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedModule } from './feed/feed.module';
-import { FeedService } from './feed/controllers/feed.service';
+import { FeedService } from './feed/services/feed.service';
 
 @Module({
   imports: [
