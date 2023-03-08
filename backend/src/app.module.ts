@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedModule } from './feed/feed.module';
 import { FeedService } from './feed/services/feed.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { FeedService } from './feed/services/feed.service';
       synchronize: true,
     }),
     FeedModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, FeedService],

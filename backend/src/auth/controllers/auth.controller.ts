@@ -1,17 +1,13 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { User } from '../models/user.class';
+import { Body, Controller, Post } from '@nestjs/common';
+import { User } from '../models/user.interface';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
   @Post('register')
-  register(@Body() user: User): string {
-    return 'register';
-  }
-
-  @Post('login')
-  @HttpCode(HttpStatus.OK)
-  login(@Body() user: User): string {
-    return 'login';
+  create(@Body() user: User): Observable<User> {
+    return this.authService.registerAccount(user);
   }
 }
