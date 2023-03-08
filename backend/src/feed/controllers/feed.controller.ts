@@ -1,4 +1,6 @@
 import { Controller } from '@nestjs/common';
 
 @Controller('feed')
-export class FeedController {}
+export class FeedController {
+    
+}
