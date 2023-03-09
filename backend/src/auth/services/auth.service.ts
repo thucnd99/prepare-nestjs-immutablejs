@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Observable, from, map, switchMap } from 'rxjs';
+import { Observable, catchError, from, map, switchMap } from 'rxjs';
 import { User } from '../models/user.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../models/user.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
@@ -66,5 +66,51 @@ export class AuthService {
         }
       }),
     );
+  }
+  getUserById(user: User): Observable<User> {
+    return from(
+      this.userRepository.findOne({
+        where: [
+          {
+            id: user.id,
+          },
+          {
+            email: user.email,
+          },
+          // many in ft
+        ],
+        select: ['id', 'firstName', 'lastName', 'email', 'password', 'role'],
+      }),
+    );
+  }
+  viewProfile(user: User): Observable<User> {
+    return this.getUserById(user).pipe(
+      map((user: User) => {
+        if (!user) {
+          throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        delete user.password;
+        return user;
+      }),
+    );
+  }
+  validateUpdateUser(user: User): Observable<User> {
+    return from(
+      this.userRepository.findOne({
+        where: [
+          {
+            email: user.email,
+          },
+          // many in ft
+        ],
+      }),
+    );
+  }
+  updateProfile(user: User): Observable<UpdateResult> {
+    const updateUser = this.getUserById(user);
+    if (!updateUser) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return from(this.userRepository.update(user.id, user));
   }
 }

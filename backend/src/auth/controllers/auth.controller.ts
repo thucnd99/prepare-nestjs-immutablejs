@@ -1,7 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { User } from '../models/user.interface';
 import { Observable, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { Roles } from '../decorators/roles.decorator';
+import { JwtGuard } from '../guards/jwt.guard';
+import { RolesGuard } from '../guards/roles.guard';
+import { Role } from '../models/role.enum';
+import { UpdateResult } from 'typeorm';
 
 @Controller('auth')
 export class AuthController {
@@ -15,5 +20,17 @@ export class AuthController {
     return this.authService
       .login(user)
       .pipe(map((jwt: string) => ({ token: jwt })));
+  }
+  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(JwtGuard, RolesGuard)
+  @Post('profile')
+  viewProfile(@Request() req): Observable<User> {
+    return this.authService.viewProfile(req.user);
+  }
+  @Roles(Role.ADMIN, Role.USER)
+  @UseGuards(JwtGuard, RolesGuard)
+  @Post('profile')
+  updateProfile(@Request() req): Observable<UpdateResult> {
+    return this.authService.updateProfile(req.user);
   }
 }
