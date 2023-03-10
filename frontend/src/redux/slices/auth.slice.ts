@@ -3,7 +3,7 @@ import { User } from '../../models/user.interface';
 import { RootState } from '../store';
 
 interface AuthState {
-    currentUser: User | {};
+    currentUser: User;
     token: string| null;
     isLoading: boolean;
     isLoggedIn: boolean;

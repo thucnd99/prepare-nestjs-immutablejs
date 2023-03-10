@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import "./Register.scss"
 import { useAppDispatch } from '../../hooks/hooks';
 import { register } from '../../redux/actions/auth.actions';
+import { useNavigate } from 'react-router-dom';
 
 interface RegisterFormValues {
     firstName: string,
@@ -15,9 +16,9 @@ interface RegisterFormValues {
 
 const RegisterForm = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const handleSubmitForm = (values: RegisterFormValues,
         formikProps: FormikHelpers<RegisterFormValues>) => {
-        setTimeout(() => {
             const { setSubmitting } = formikProps;
             dispatch(register({
                 firstName: values.firstName,
@@ -26,7 +27,7 @@ const RegisterForm = () => {
                 password: values.password
             }))
             setSubmitting(false);
-        }, 400);
+            navigate("/")
     }
     return (
         <>

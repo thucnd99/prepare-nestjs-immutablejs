@@ -67,15 +67,12 @@ export class AuthService {
       }),
     );
   }
-  getUserById(user: User): Observable<User> {
+  getUserById(id: number): Observable<User> {
     return from(
       this.userRepository.findOne({
         where: [
           {
-            id: user.id,
-          },
-          {
-            email: user.email,
+            id: id,
           },
           // many in ft
         ],
@@ -84,7 +81,7 @@ export class AuthService {
     );
   }
   viewProfile(user: User): Observable<User> {
-    return this.getUserById(user).pipe(
+    return this.getUserById(user.id).pipe(
       map((user: User) => {
         if (!user) {
           throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -106,11 +103,11 @@ export class AuthService {
       }),
     );
   }
-  updateProfile(user: User): Observable<UpdateResult> {
-    const updateUser = this.getUserById(user);
+  updateProfile(id: number, user: User): Observable<UpdateResult> {
+    const updateUser = this.getUserById(id);
     if (!updateUser) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    return from(this.userRepository.update(user.id, user));
+    return from(this.userRepository.update(id, user));
   }
 }

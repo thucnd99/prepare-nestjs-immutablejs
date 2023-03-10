@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/actions/auth.actions";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import "./Login.scss"
+import { useNavigate } from "react-router-dom";
+
 interface LoginFormValues {
   email: string,
   password: string,
 }
-const LoginForm:React.FC = () => {
+const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
+  const token = useAppSelector((state) => state.auth.token)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (token !== null)
+      navigate("/profile")
+  }, [navigate, token])
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
-    setTimeout(() => {
       const { setSubmitting } = formikProps;
       dispatch(login(values.email, values.password))
       setSubmitting(false);
-    }, 400);
   }
   return (
     <Formik

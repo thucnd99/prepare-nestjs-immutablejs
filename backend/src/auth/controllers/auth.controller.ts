@@ -38,6 +38,6 @@ export class AuthController {
   @UseGuards(JwtGuard, RolesGuard)
   @Post('update')
   updateProfile(@Request() req): Observable<UpdateResult> {
-    return this.authService.updateProfile(req.body);
+    return this.authService.updateProfile(req.user.id, req.body);
   }
 }

@@ -77,3 +77,13 @@ export const updateProfile = (user: User): AppThunk => {
     }
   };
 };
+
+export const logout = (): AppThunk => {
+  return (dispatch) => {
+    try {
+      dispatch(authActions.logout());
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

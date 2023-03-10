@@ -1,10 +1,12 @@
 import React from "react"
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Outlet } from "react-router-dom";
+import { Button, Layout, Space } from 'antd';
+import { Link, Outlet } from "react-router-dom";
+import { useAppSelector } from "../hooks/hooks";
 
 const { Header, Content, Footer } = Layout;
 
 const MainLayout: React.FC = () => {
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     return (
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
@@ -17,22 +19,31 @@ const MainLayout: React.FC = () => {
                         background: 'rgba(255, 255, 255, 0.2)',
                     }}
                 />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={new Array(3).fill(null).map((_, index) => ({
-                        key: String(index + 1),
-                        label: `nav ${index + 1}`,
-                    }))}
-                />
+                <div style={{ float: "right" }}>
+                    <Space align="center">
+                        {isLoggedIn ?
+                            <>
+                                <Button type="primary">
+                                    <Link to="/profile">Profile</Link>
+                                </Button>
+                                <Button type="primary">
+                                    <Link to="/logout">Logout</Link>
+                                </Button>
+                            </>
+                            :
+                            <>
+                                <Button type="primary">
+                                    <Link to="/login">
+                                        Login</Link>
+                                </Button>
+                                <Button type="primary">
+                                    <Link to="/register">Register</Link>
+                                </Button>
+                            </>}
+                    </Space>
+                </div>
             </Header>
             <Content className="site-layout" style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
                 <Outlet />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
