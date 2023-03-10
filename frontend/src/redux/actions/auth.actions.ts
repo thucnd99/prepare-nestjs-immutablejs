@@ -4,6 +4,7 @@ import { authActions } from "../slices/auth.slice";
 import { AppThunk } from "../store";
 
 export const register = (user: User): AppThunk => {
+  console.log(user);
   return async (dispatch) => {
     dispatch(authActions.isLoading);
     const sendRequest = async () => {
