@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from '../models/user.interface';
 import { Observable, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -23,14 +30,14 @@ export class AuthController {
   }
   @Roles(Role.ADMIN, Role.USER)
   @UseGuards(JwtGuard, RolesGuard)
-  @Post('profile')
+  @Get('profile')
   viewProfile(@Request() req): Observable<User> {
     return this.authService.viewProfile(req.user);
   }
   @Roles(Role.ADMIN, Role.USER)
   @UseGuards(JwtGuard, RolesGuard)
-  @Post('profile')
+  @Post('update')
   updateProfile(@Request() req): Observable<UpdateResult> {
-    return this.authService.updateProfile(req.user);
+    return this.authService.updateProfile(req.body);
   }
 }
