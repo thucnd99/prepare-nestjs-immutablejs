@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage, useField, FormikProps } from "formik";
 import * as Yup from "yup";
+import "./Register.scss"
+
 const RegisterForm: React.FC = () => (
     <Formik
         initialValues={{
@@ -20,7 +22,9 @@ const RegisterForm: React.FC = () => (
                 .email('Invalid email address')
                 .required('Email is required'),
             password: Yup.string()
-                .required('Password is required')
+                .required('Password is required'),
+            confirmPassword: Yup.string()
+                .oneOf([Yup.ref('password')], 'Passwords must match')
         })}
         onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -29,35 +33,47 @@ const RegisterForm: React.FC = () => (
             }, 400);
         }}
     >
-        <Form>
+        <Form className='form'>
             <Field
+                className='form-item'
                 label="First Name"
                 name="firstName"
                 type="text"
                 placeholder="Jane"
             />
-            <ErrorMessage name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+            <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
             <Field
+                className='form-item'
                 label="Last Name"
                 name="lastName"
                 type="text"
                 placeholder="Doe"
             />
-            <ErrorMessage name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+            <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
             <Field
+                className='form-item'
                 label="Email Address"
                 name="email"
                 type="email"
                 placeholder="jane@formik.com"
             />
-            <ErrorMessage name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
+            <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
             <Field
+                className='form-item'
                 label="Password"
                 name="password"
                 type="password"
-                placeholder="jane@formik.com"
+                placeholder="your pass"
             />
-            <ErrorMessage name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
+            <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
+            <Field
+                className='form-item'
+                label="Confirm password"
+                name="confirmPassword"
+                type="password"
+                placeholder="confirm your pass"
+            />
+            <ErrorMessage className='error' name="confirmPassword">{(msg) => <p>{msg}</p>}</ErrorMessage>
             <button type="submit">Submit</button>
         </Form>
     </Formik>
