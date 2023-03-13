@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useAppDispatch } from "../../hooks/hooks";
 import { updateProfile } from "../../redux/actions/auth.actions";
 import { FeedPost } from "../../models/post.interface";
+import { SketchPicker } from 'react-color';
 
 interface ProfileProps {
     user: User
@@ -17,11 +18,13 @@ interface ProfileFormValues {
     email: string,
     password: string,
     confirmPassword: string,
-    feedPosts: FeedPost[]
+    feedPosts: FeedPost[],
+    colorPicker: string,
 }
 
 const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     const userData = props.user
+    const colorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
     const dispatch = useAppDispatch()
     const handleSubmitForm = (values: ProfileFormValues,
         formikProps: FormikHelpers<ProfileFormValues>) => {
@@ -38,6 +41,7 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         dispatch(updateProfile(data))
         setSubmitting(false);
     }
+
     return (
         <Formik
             initialValues={{
@@ -46,7 +50,8 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                 email: userData.email || '',
                 password: '',
                 confirmPassword: '',
-                feedPosts: userData.feedPosts || []
+                feedPosts: userData.feedPosts || [],
+                colorPicker: '#000',
             }}
             validationSchema={
                 Yup.object({
@@ -61,55 +66,57 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                         .required('Email is required'),
                     password: Yup.string(),
                     confirmPassword: Yup.string()
-                        .oneOf([Yup.ref('password')], 'Passwords must match')
+                        .oneOf([Yup.ref('password')], 'Passwords must match'),
+                    colorPicker: Yup.string().matches(colorRegex, "Invalid color")
                 })
             }
             onSubmit={(values: ProfileFormValues,
                 formikProps: FormikHelpers<ProfileFormValues>) => handleSubmitForm(values, formikProps)
             }
         >
-            {({ values }) => (
+            {({ values, setFieldValue }) => (
                 <Form className='form'>
+                    <label htmlFor="firstName">First Name</label>
                     <Field
                         className='form-item'
-                        label="First Name"
                         name="firstName"
                         type="text"
                         placeholder="Jane"
                     />
+                    <label htmlFor="lastName">Last Name</label>
                     <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
                     <Field
                         className='form-item'
-                        label="Last Name"
                         name="lastName"
                         type="text"
                         placeholder="Doe"
                     />
                     <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <label htmlFor="email">Email</label>
                     <Field
                         className='form-item'
-                        label="Email Address"
                         name="email"
                         type="email"
                         placeholder="jane@formik.com"
                     />
                     <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <label htmlFor="password">Password</label>
                     <Field
                         className='form-item'
-                        label="Password"
                         name="password"
                         type="password"
                         placeholder="your pass"
                     />
                     <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <label htmlFor="confirmPassword">Confirm password</label>
                     <Field
                         className='form-item'
-                        label="Confirm password"
                         name="confirmPassword"
                         type="password"
                         placeholder="confirm your pass"
                     />
                     <ErrorMessage className='error' name="confirmPassword">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <label htmlFor="feedPosts">Posts</label>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
                             <div>
@@ -150,9 +157,15 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
+                    <label htmlFor="colorPicker">Posts</label>
+                    <SketchPicker color={values['colorPicker']} onChange={(color, event) => {
+                        setFieldValue('colorPicker', color.hex, true)
+                        }} />
+                    <ErrorMessage className='error' name="colorPicker">{(msg) => <p>{msg}</p>}</ErrorMessage>
                     <button type="submit">Submit</button>
                 </Form>
-            )}
+            )
+            }
         </Formik >
     )
 }
