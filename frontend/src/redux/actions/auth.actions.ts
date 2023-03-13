@@ -71,7 +71,7 @@ export const updateProfile = (user: User): AppThunk => {
 
     try {
       const result = await sendData();
-      if (result.affected) dispatch(authActions.setCurrentUser(user));
+      if (result) dispatch(authActions.setCurrentUser(result));
     } catch (error) {
       console.log(error);
     }

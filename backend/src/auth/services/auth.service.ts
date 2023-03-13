@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Observable, catchError, from, map, switchMap } from 'rxjs';
+import { Observable, catchError, from, map, of, switchMap } from 'rxjs';
 import { User } from '../models/user.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../models/user.entity';
@@ -17,7 +17,7 @@ export class AuthService {
     return from(bcrypt.hash(password, 12));
   }
   registerAccount(user: User): Observable<User> {
-    const { firstName, lastName, email, password } = user;
+    const { firstName, lastName, email, password, feedPosts: posts } = user;
     return this.hashPassword(password).pipe(
       switchMap((hashedPassword: string) => {
         return from(
@@ -26,6 +26,7 @@ export class AuthService {
             lastName,
             email,
             password: hashedPassword,
+            feedPosts: posts,
           }),
         ).pipe(
           map((user: User) => {
@@ -77,6 +78,7 @@ export class AuthService {
           // many in ft
         ],
         select: ['id', 'firstName', 'lastName', 'email', 'password', 'role'],
+        relations: { feedPosts: true },
       }),
     );
   }
@@ -109,5 +111,18 @@ export class AuthService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     return from(this.userRepository.update(id, user));
+  }
+  updateUserWithArrPosts(id: number, user: User): Observable<User> {
+    const updateUser = this.getUserById(id).pipe(
+      map((user: User) => {
+        if (!user) {
+          throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        delete user.password;
+        return user;
+      }),
+    );
+    console.log(updateUser);
+    return from(this.userRepository.save(user));
   }
 }

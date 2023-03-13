@@ -16,6 +16,9 @@ export class UserEntity {
   password: string;
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
-  @OneToMany(() => FeedPostEntity, (feedPostEntity) => feedPostEntity.author)
+  @OneToMany(() => FeedPostEntity, (feedPostEntity) => feedPostEntity.author, {
+    cascade: true,
+    eager: true,
+  })
   feedPosts: FeedPostEntity[];
 }

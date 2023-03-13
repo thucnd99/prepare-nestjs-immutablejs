@@ -37,7 +37,7 @@ export class AuthController {
   @Roles(Role.ADMIN, Role.USER)
   @UseGuards(JwtGuard, RolesGuard)
   @Post('update')
-  updateProfile(@Request() req): Observable<UpdateResult> {
-    return this.authService.updateProfile(req.user.id, req.body);
+  updateProfile(@Request() req): Observable<User> {
+    return this.authService.updateUserWithArrPosts(req.user.id, req.body);
   }
 }
