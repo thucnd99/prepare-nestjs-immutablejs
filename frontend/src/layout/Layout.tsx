@@ -37,7 +37,7 @@ const MainLayout: React.FC = () => {
                                         Login</Link>
                                 </Button>
                                 <Button type="primary">
-                                    <Link to="/register">Register</Link>
+                                    <Link to="/signup">Register</Link>
                                 </Button>
                             </>}
                     </Space>

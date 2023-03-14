@@ -40,6 +40,7 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
             data.password = values.password
         dispatch(updateProfile(data))
         setSubmitting(false);
+        console.log(values);
     }
 
     return (
@@ -67,6 +68,12 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                     password: Yup.string(),
                     confirmPassword: Yup.string()
                         .oneOf([Yup.ref('password')], 'Passwords must match'),
+                    feedPosts: Yup.array().of(Yup.object().shape(
+                        {
+                            id: Yup.number(),
+                            body: Yup.string().required('Body is required')
+                        }
+                    )),
                     colorPicker: Yup.string().matches(colorRegex, "Invalid color")
                 })
             }
@@ -126,6 +133,7 @@ const ProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                             <div className="col">
                                                 <label htmlFor={`feedPosts.${index}.body`}>Body</label>
                                                 <Field
+                                                    className='form-item'
                                                     name={`feedPosts.${index}.body`}
                                                     placeholder="Jane Doe"
                                                     type="text"

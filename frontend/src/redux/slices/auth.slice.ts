@@ -24,10 +24,12 @@ const authSlice = createSlice({
         state.isLoading = true;
       },
       setCurrentUser: (state, action: PayloadAction<User>) => {
-        state.currentUser = action.payload
+        state.currentUser = action.payload;
+        state.isLoading = false;
       },
       setToken: (state, action: PayloadAction<string>) => {
-        state.token = action.payload
+        state.token = action.payload;
+        state.isLoading = false;
       },
       login:(state) => {
         state.isLoggedIn = true;
