@@ -1,16 +1,17 @@
 import React, { useEffect } from "react"
-import { useAppDispatch } from "../../hooks/hooks"
+import { useQueryClient } from "react-query"
 import { useNavigate } from "react-router-dom"
-import { logout } from "../../redux/actions/auth.actions"
-import { setToken } from "../../services/auth.service"
+import { logout } from "../../services/auth.service"
 
 const RQLogout = () => {
   //maybe
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   useEffect(() => {
-    setToken('')
+    queryClient.removeQueries('view-profile')
+    logout()
     navigate("/")
-  }, [navigate])
+  }, [navigate, queryClient])
   return (<>Logout...</>)
 }
 

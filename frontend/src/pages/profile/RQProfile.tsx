@@ -1,18 +1,18 @@
 import React, { useState } from "react"
 import { Button, Modal, Typography } from "antd"
-import ProfileUpdateForm from "../../components/profile.update.form/ProfileUpdateForm";
 import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";
 import RQProfileUpdateForm from "../../components/profile.update.form/RQ.ProfileUpdateForm";
+import Loading from "../../components/loading/Loading";
 
-const { Title, Paragraph, Text, Link } = Typography;
+const { Paragraph } = Typography;
 const RQProfile: React.FC = () => {
     const { isLoading, isError, data, error } = useQuery('view-profile', viewProfile)
     const user = data?.data
     const [open, setOpen] = useState(false);
     const content = () => {
         if (isLoading)
-            return <>Loading...</>
+            return <Loading size="large" />
         else if (isError) {
             console.log(error)
             return <>Something went wrong...</>
@@ -27,8 +27,8 @@ const RQProfile: React.FC = () => {
             <Modal
                 title="Update profile"
                 open={open}
-                onOk={(e) => setOpen(false)}
-                onCancel={(e) => setOpen(false)}
+                onOk={() => setOpen(false)}
+                onCancel={() => setOpen(false)}
             >
                 <RQProfileUpdateForm user={user} />
             </Modal>

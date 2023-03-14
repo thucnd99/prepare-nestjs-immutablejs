@@ -3,7 +3,8 @@ import { User } from '../models/user.interface'
 import axiosInstance from './axiosInstance'
 
 export const userData = {
-    token: ""
+    token: "",
+    isLoggedIn: false,
 }
 
 export const login = (email: string, password: string) => {
@@ -14,7 +15,10 @@ export const viewProfile = () => {
     return axiosInstance.get("auth/profile")
 }
 
-export const logout = () => {}
+export const logout = () => {
+    userData.isLoggedIn = false;
+    userData.token = '';
+}
 
 export const updateProfile = (user: User) => {
     return axiosInstance.post("auth/update", {...user})
@@ -25,10 +29,15 @@ export const register = (user: User) => {
 }
 
 export const setToken = (token:string) => {
+    userData.isLoggedIn = true;
     userData.token = token;
 }
 
 export const getToken = () => {
     console.log(userData)
     return userData.token;
+}
+
+export const getCurrentUserStatus = () => {
+    return userData.isLoggedIn;
 }
