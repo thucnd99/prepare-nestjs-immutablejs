@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
-import { login } from "../../services/auth.service";
+import { useMutation } from "react-query";
+import { login, setToken } from "../../services/auth.service";
 
 interface LoginFormValues {
     email: string,
@@ -15,7 +15,8 @@ const RQLoginForm: React.FC = () => {
     const navigate = useNavigate()
     const loginMutation = useMutation(({ email, password }: { email: string, password: string }) => login(email, password), {
         onSuccess: (data, variables, context) => {
-            console.log(data.data);
+            console.log(data.data)
+            setToken(data.data.token);
             navigate("/profile");
         },
         onError: (error, variables, context) => {

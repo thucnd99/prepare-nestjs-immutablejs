@@ -2,10 +2,10 @@ import React from "react"
 import { User } from "../../models/user.interface"
 import { Formik, FormikHelpers, Form, Field, ErrorMessage, FieldArray } from "formik"
 import * as Yup from "yup";
-import { useAppDispatch } from "../../hooks/hooks";
-import { updateProfile } from "../../redux/actions/auth.actions";
 import { FeedPost } from "../../models/post.interface";
 import { SketchPicker } from 'react-color';
+import { useMutation, useQueryClient } from "react-query";
+import { updateProfile } from "../../services/auth.service";
 
 interface ProfileProps {
     user: User
@@ -25,7 +25,18 @@ interface ProfileFormValues {
 const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     const userData = props.user
     const colorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
-    const dispatch = useAppDispatch()
+    const queryClient = useQueryClient()
+    const updateFormMutation = useMutation(updateProfile, {
+        onSuccess(data, variables, context) {
+            console.log(data.data)
+        },
+        onError(error, variables, context) {
+            console.log(error)
+        },
+        onSettled(data, error, variables, context) {
+            queryClient.invalidateQueries('view-profile')
+        },
+    })
     const handleSubmitForm = (values: ProfileFormValues,
         formikProps: FormikHelpers<ProfileFormValues>) => {
         const { setSubmitting } = formikProps;
@@ -38,7 +49,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         }
         if (values.password.length > 0)
             data.password = values.password
-        dispatch(updateProfile(data))
+        updateFormMutation.mutate(data);
         setSubmitting(false);
         console.log(values);
     }

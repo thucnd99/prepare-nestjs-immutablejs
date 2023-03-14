@@ -3,6 +3,7 @@ import { Button, Modal, Typography } from "antd"
 import ProfileUpdateForm from "../../components/profile.update.form/ProfileUpdateForm";
 import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";
+import RQProfileUpdateForm from "../../components/profile.update.form/RQ.ProfileUpdateForm";
 
 const { Title, Paragraph, Text, Link } = Typography;
 const RQProfile: React.FC = () => {
@@ -29,7 +30,7 @@ const RQProfile: React.FC = () => {
                 onOk={(e) => setOpen(false)}
                 onCancel={(e) => setOpen(false)}
             >
-                <ProfileUpdateForm user={user} />
+                <RQProfileUpdateForm user={user} />
             </Modal>
         </>
 
@@ -38,7 +39,7 @@ const RQProfile: React.FC = () => {
         setOpen(true);
     };
     return (<>
-        {content}
+        {content()}
     </>)
 }
 

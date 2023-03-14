@@ -1,12 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Button, Layout, Space } from 'antd';
 import { Link, Outlet } from "react-router-dom";
-import { useAppSelector } from "../hooks/hooks";
+import { getToken } from "../services/auth.service";
 
 const { Header, Content, Footer } = Layout;
 
 const RQMainLayout: React.FC = () => {
-    const isLoggedIn = true;
+    const token = getToken();
     return (
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
@@ -21,7 +21,7 @@ const RQMainLayout: React.FC = () => {
                 />
                 <div style={{ float: "right" }}>
                     <Space align="center">
-                        {isLoggedIn ?
+                        {token ?
                             <>
                                 <Button type="primary">
                                     <Link to="/profile">Profile</Link>
