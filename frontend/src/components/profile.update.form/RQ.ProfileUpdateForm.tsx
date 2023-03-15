@@ -92,21 +92,21 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         >
             {({ values, setFieldValue }) => (
                 <Form className="form">
-                    <CustomFormLabel htmlFor="firstName">First Name</CustomFormLabel>
+                    <CustomFormLabel aria-required={true} htmlFor="firstName">First Name</CustomFormLabel>
                     <CustomFormikField
                         name="firstName"
                         type="text"
                         placeholder="Jane"
                     />
-                    <CustomFormLabel htmlFor="lastName">Last Name</CustomFormLabel>
                     <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <CustomFormLabel aria-required={true} htmlFor="lastName">Last Name</CustomFormLabel>
                     <CustomFormikField
                         name="lastName"
                         type="text"
                         placeholder="Doe"
                     />
                     <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
+                    <CustomFormLabel aria-required={true} htmlFor="email">Email</CustomFormLabel>
                     <CustomFormikField
                         name="email"
                         type="email"
@@ -135,7 +135,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                     values.feedPosts.map((post, index) => (
                                         <div className="row" key={index}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <CustomFormLabel htmlFor={`feedPosts.${index}.body`}>Body</CustomFormLabel>
+                                                <CustomFormLabel aria-required={true} htmlFor={`feedPosts.${index}.body`}>Body</CustomFormLabel>
                                                 <CustomButton
                                                     color="red"
                                                     htmlType="button"
@@ -166,7 +166,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <CustomFormLabel htmlFor="colorPicker">Color Picker</CustomFormLabel>
+                    <CustomFormLabel aria-required={true} htmlFor="colorPicker">Color Picker</CustomFormLabel>
                     <SketchPicker color={values['colorPicker']} onChange={(color, event) => {
                         setFieldValue('colorPicker', color.hex, true)
                     }} />
