@@ -5,6 +5,8 @@ import "./Register.scss"
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { register } from '../../services/auth.service'
+import CustomButton from '../../themes/CustomButton';
+import CustomFormikField from '../../themes/CustomFormItem';
 interface RegisterFormValues {
     firstName: string,
     lastName: string,
@@ -67,47 +69,42 @@ const RQRegisterForm = () => {
             }
         >
             <Form className='form'>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="First Name"
                     name="firstName"
                     type="text"
                     placeholder="Jane"
                 />
                 <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Last Name"
                     name="lastName"
                     type="text"
                     placeholder="Doe"
                 />
                 <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Email Address"
                     name="email"
                     type="email"
                     placeholder="jane@formik.com"
                 />
                 <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Password"
                     name="password"
                     type="password"
                     placeholder="your pass"
                 />
                 <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Confirm password"
                     name="confirmPassword"
                     type="password"
                     placeholder="confirm your pass"
                 />
                 <ErrorMessage className='error' name="confirmPassword">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <button type="submit">Submit</button>
+                <CustomButton htmlType="submit">Submit</CustomButton>
             </Form>
         </Formik >
         </>

@@ -1,17 +1,19 @@
 import React from "react"
 import { User } from "../../models/user.interface"
-import { Formik, FormikHelpers, Form, Field, ErrorMessage, FieldArray } from "formik"
+import { Formik, FormikHelpers, ErrorMessage, FieldArray } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
 import { SketchPicker } from 'react-color';
 import { useMutation, useQueryClient } from "react-query";
 import { updateProfile } from "../../services/auth.service";
-
+import CustomButton from "../../themes/CustomButton";
+import CustomFormikField from "../../themes/CustomFormItem";
+import CustomFormLabel from "../../themes/CustomFormLabel";
+import { Form } from "antd";
 interface ProfileProps {
     user: User
     // many many
 }
-
 interface ProfileFormValues {
     firstName: string,
     lastName: string,
@@ -28,13 +30,10 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     const queryClient = useQueryClient()
     const updateFormMutation = useMutation(updateProfile, {
         onSuccess(data, variables, context) {
-            console.log(data.data)
+            queryClient.invalidateQueries('view-profile')
         },
         onError(error, variables, context) {
             console.log(error)
-        },
-        onSettled(data, error, variables, context) {
-            queryClient.invalidateQueries('view-profile')
         },
     })
     const handleSubmitForm = (values: ProfileFormValues,
@@ -51,7 +50,6 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
             data.password = values.password
         updateFormMutation.mutate(data);
         setSubmitting(false);
-        console.log(values);
     }
 
     return (
@@ -93,95 +91,88 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
             }
         >
             {({ values, setFieldValue }) => (
-                <Form className='form'>
-                    <label htmlFor="firstName">First Name</label>
-                    <Field
-                        className='form-item'
+                <Form className="form">
+                    <CustomFormLabel htmlFor="firstName">First Name</CustomFormLabel>
+                    <CustomFormikField
                         name="firstName"
                         type="text"
                         placeholder="Jane"
                     />
-                    <label htmlFor="lastName">Last Name</label>
+                    <CustomFormLabel htmlFor="lastName">Last Name</CustomFormLabel>
                     <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <Field
-                        className='form-item'
+                    <CustomFormikField
                         name="lastName"
                         type="text"
                         placeholder="Doe"
                     />
                     <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <label htmlFor="email">Email</label>
-                    <Field
-                        className='form-item'
+                    <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
+                    <CustomFormikField
                         name="email"
                         type="email"
                         placeholder="jane@formik.com"
                     />
                     <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <label htmlFor="password">Password</label>
-                    <Field
-                        className='form-item'
+                    <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
+                    <CustomFormikField
                         name="password"
                         type="password"
                         placeholder="your pass"
                     />
                     <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <label htmlFor="confirmPassword">Confirm password</label>
-                    <Field
-                        className='form-item'
+                    <CustomFormLabel htmlFor="confirmPassword">Confirm password</CustomFormLabel>
+                    <CustomFormikField
                         name="confirmPassword"
                         type="password"
                         placeholder="confirm your pass"
                     />
                     <ErrorMessage className='error' name="confirmPassword">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <label htmlFor="feedPosts">Posts</label>
+                    <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
                             <div>
                                 {values.feedPosts.length > 0 &&
                                     values.feedPosts.map((post, index) => (
                                         <div className="row" key={index}>
-                                            <div className="col">
-                                                <label htmlFor={`feedPosts.${index}.body`}>Body</label>
-                                                <Field
-                                                    className='form-item'
-                                                    name={`feedPosts.${index}.body`}
-                                                    placeholder="Jane Doe"
-                                                    type="text"
-                                                />
-                                                <ErrorMessage
-                                                    name={`feedPosts.${index}.body`}
-                                                    component="div"
-                                                    className="field-error"
-                                                />
-                                            </div>
-                                            <div className="col">
-                                                <button
-                                                    type="button"
-                                                    className="secondary"
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                                <CustomFormLabel htmlFor={`feedPosts.${index}.body`}>Body</CustomFormLabel>
+                                                <CustomButton
+                                                    color="red"
+                                                    htmlType="button"
                                                     onClick={() => remove(index)}
                                                 >
                                                     X
-                                                </button>
+                                                </CustomButton>
                                             </div>
+                                            <CustomFormikField
+                                                name={`feedPosts.${index}.body`}
+                                                placeholder="Jane Doe"
+                                                type="text"
+                                            />
+                                            <ErrorMessage
+                                                name={`feedPosts.${index}.body`}
+                                                component="div"
+                                                className="field-error"
+                                            />
                                         </div>
                                     ))}
-                                <button
-                                    type="button"
-                                    className="secondary"
+                                <CustomButton
+                                    color="mediumseagreen"
+                                    htmlType="button"
                                     onClick={() => push({ body: '' })}
                                 >
                                     Add Post
-                                </button>
+                                </CustomButton>
                             </div>
                         )}
                     </FieldArray>
-                    <label htmlFor="colorPicker">Posts</label>
+                    <CustomFormLabel htmlFor="colorPicker">Color Picker</CustomFormLabel>
                     <SketchPicker color={values['colorPicker']} onChange={(color, event) => {
                         setFieldValue('colorPicker', color.hex, true)
-                        }} />
+                    }} />
                     <ErrorMessage className='error' name="colorPicker">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                    <button type="submit">Submit</button>
+                    <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
+
                 </Form>
             )
             }

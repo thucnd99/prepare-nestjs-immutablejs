@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";
 import RQProfileUpdateForm from "../../components/profile.update.form/RQ.ProfileUpdateForm";
 import Loading from "../../components/loading/Loading";
+import CustomButton from "../../themes/CustomButton";
 
 const { Paragraph } = Typography;
 const RQProfile: React.FC = () => {

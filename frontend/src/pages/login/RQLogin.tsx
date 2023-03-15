@@ -6,6 +6,8 @@ import "./Login.scss"
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { login, setToken } from "../../services/auth.service";
+import CustomButton from "../../themes/CustomButton";
+import CustomFormikField from "../../themes/CustomFormItem";
 
 interface LoginFormValues {
     email: string,
@@ -53,23 +55,21 @@ const RQLoginForm: React.FC = () => {
             }
         >
             <Form className='form'>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Email Address"
                     name="email"
                     type="email"
                     placeholder="jane@formik.com"
                 />
                 <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <Field
-                    className='form-item'
+                <CustomFormikField
                     label="Password"
                     name="password"
                     type="password"
                     placeholder="your pass"
                 />
                 <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
-                <button type="submit">Submit</button>
+                <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
             </Form>
         </Formik >
     )

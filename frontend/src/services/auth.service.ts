@@ -34,7 +34,6 @@ export const setToken = (token:string) => {
 }
 
 export const getToken = () => {
-    console.log(userData)
     return userData.token;
 }
 
