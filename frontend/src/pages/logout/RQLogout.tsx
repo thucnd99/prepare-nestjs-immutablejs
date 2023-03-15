@@ -10,6 +10,7 @@ const RQLogout = () => {
   useEffect(() => {
     queryClient.removeQueries('view-profile')
     logout()
+    queryClient.invalidateQueries('get-current');
     navigate("/")
   }, [navigate, queryClient])
   return (<>Logout...</>)
