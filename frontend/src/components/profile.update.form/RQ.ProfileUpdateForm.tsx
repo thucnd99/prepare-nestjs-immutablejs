@@ -98,35 +98,35 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                         type="text"
                         placeholder="Jane"
                     />
-                    <ErrorMessage className='error' name="firstName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage name="firstName">{(msg) => <p  className='error'>{msg}</p>}</ErrorMessage>
                     <CustomFormLabel aria-required={true} htmlFor="lastName">Last Name</CustomFormLabel>
                     <CustomFormikField
                         name="lastName"
                         type="text"
                         placeholder="Doe"
                     />
-                    <ErrorMessage className='error' name="lastName">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage name="lastName">{(msg) => <p  className='error'>{msg}</p>}</ErrorMessage>
                     <CustomFormLabel aria-required={true} htmlFor="email">Email</CustomFormLabel>
                     <CustomFormikField
                         name="email"
                         type="email"
                         placeholder="jane@formik.com"
                     />
-                    <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage name="email">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
                     <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
                     <CustomFormikField
                         name="password"
                         type="password"
                         placeholder="your pass"
                     />
-                    <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage name="password">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
                     <CustomFormLabel htmlFor="confirmPassword">Confirm password</CustomFormLabel>
                     <CustomFormikField
                         name="confirmPassword"
                         type="password"
                         placeholder="confirm your pass"
                     />
-                    <ErrorMessage className='error' name="confirmPassword">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage name="confirmPassword">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
@@ -150,9 +150,9 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 type="text"
                                             />
                                             <ErrorMessage
+                                                className='error'
                                                 name={`feedPosts.${index}.body`}
                                                 component="div"
-                                                className="field-error"
                                             />
                                         </div>
                                     ))}
@@ -170,7 +170,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                     <SketchPicker color={values['colorPicker']} onChange={(color, event) => {
                         setFieldValue('colorPicker', color.hex, true)
                     }} />
-                    <ErrorMessage className='error' name="colorPicker">{(msg) => <p>{msg}</p>}</ErrorMessage>
+                    <ErrorMessage className='error' name="colorPicker"/>
                     <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
 
                 </Form>
