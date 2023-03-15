@@ -113,18 +113,20 @@ export class AuthService {
     return from(this.userRepository.update(id, user));
   }
   updateUserWithArrPosts(id: number, user: User): Observable<User> {
-    const updateUser = this.getUserById(id);
-    updateUser.subscribe((value) => {
-      if (!value) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-      } else {
-        value.email = user.email;
-        value.firstName = user.firstName;
-        value.lastName = user.lastName;
-        value.feedPosts = user.feedPosts;
-        this.userRepository.save(value);
-      }
-    });
-    return updateUser;
+    return this.getUserById(id).pipe(
+      map((value: User) => {
+        if (!value) {
+          throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        } else {
+          value.email = user.email;
+          value.firstName = user.firstName;
+          value.lastName = user.lastName;
+          value.feedPosts = user.feedPosts;
+          this.userRepository.save(value);
+          delete value.password;
+          return value;
+        }
+      }),
+    );
   }
 }
