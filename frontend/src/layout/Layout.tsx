@@ -1,12 +1,13 @@
 import React from "react"
 import { Button, Layout, Space } from 'antd';
 import { Link, Outlet } from "react-router-dom";
-import { useAppSelector } from "../hooks/hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const { Header, Content, Footer } = Layout;
 
 const MainLayout: React.FC = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn)
     return (
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>

@@ -18,10 +18,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<RQMainLayout />}>
+        <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<RQLoginForm />} />
-          <Route path="/logout" element={<RQLogout />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<RQRegisterForm />} />
           <Route path="/profile" element={<RQProfile />} />
         </Route>

@@ -10,6 +10,7 @@ import CustomButton from "../../themes/CustomButton";
 import CustomFormikField from "../../themes/CustomFormItem";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import { Form } from "antd";
+import FormField from "../form.field/FormField";
 interface ProfileProps {
     user: User
     // many many
@@ -51,7 +52,27 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         updateFormMutation.mutate(data);
         setSubmitting(false);
     }
-
+    const validate = Yup.object({
+        firstName: Yup.string()
+            .max(15, 'Must be 15 characters or less')
+            .required('First name is required'),
+        lastName: Yup.string()
+            .max(20, 'Must be 20 characters or less')
+            .required('Last name is required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Email is required'),
+        password: Yup.string(),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password')], 'Passwords must match'),
+        feedPosts: Yup.array().of(Yup.object().shape(
+            {
+                id: Yup.number(),
+                body: Yup.string().required('Body is required')
+            }
+        )),
+        colorPicker: Yup.string().matches(colorRegex, "Invalid color")
+    })
     return (
         <Formik
             initialValues={{
@@ -63,70 +84,20 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                 feedPosts: userData.feedPosts || [],
                 colorPicker: '#000',
             }}
-            validationSchema={
-                Yup.object({
-                    firstName: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
-                        .required('First name is required'),
-                    lastName: Yup.string()
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Last name is required'),
-                    email: Yup.string()
-                        .email('Invalid email address')
-                        .required('Email is required'),
-                    password: Yup.string(),
-                    confirmPassword: Yup.string()
-                        .oneOf([Yup.ref('password')], 'Passwords must match'),
-                    feedPosts: Yup.array().of(Yup.object().shape(
-                        {
-                            id: Yup.number(),
-                            body: Yup.string().required('Body is required')
-                        }
-                    )),
-                    colorPicker: Yup.string().matches(colorRegex, "Invalid color")
-                })
-            }
+            validationSchema={validate}
             onSubmit={(values: ProfileFormValues,
                 formikProps: FormikHelpers<ProfileFormValues>) => handleSubmitForm(values, formikProps)
             }
         >
             {({ values, setFieldValue }) => (
                 <Form className="form">
-                    <CustomFormLabel aria-required={true} htmlFor="firstName">First Name</CustomFormLabel>
-                    <CustomFormikField
-                        name="firstName"
-                        type="text"
-                        placeholder="Jane"
-                    />
-                    <ErrorMessage name="firstName">{(msg) => <p  className='error'>{msg}</p>}</ErrorMessage>
-                    <CustomFormLabel aria-required={true} htmlFor="lastName">Last Name</CustomFormLabel>
-                    <CustomFormikField
-                        name="lastName"
-                        type="text"
-                        placeholder="Doe"
-                    />
-                    <ErrorMessage name="lastName">{(msg) => <p  className='error'>{msg}</p>}</ErrorMessage>
-                    <CustomFormLabel aria-required={true} htmlFor="email">Email</CustomFormLabel>
-                    <CustomFormikField
-                        name="email"
-                        type="email"
-                        placeholder="jane@formik.com"
-                    />
-                    <ErrorMessage name="email">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
-                    <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
-                    <CustomFormikField
-                        name="password"
-                        type="password"
-                        placeholder="your pass"
-                    />
-                    <ErrorMessage name="password">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
-                    <CustomFormLabel htmlFor="confirmPassword">Confirm password</CustomFormLabel>
-                    <CustomFormikField
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="confirm your pass"
-                    />
-                    <ErrorMessage name="confirmPassword">{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+                    <FormField required={true} label="First Name" name="firstName" type="text" placeholder="Jane" />
+                    <FormField required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" />
+                    <FormField required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" />
+                    <FormField label="Password" name="password" type="password" placeholder="your pass" />
+                    <FormField label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" />
+                    <FormField label="Posts" name="feedPosts" type="array" />
+                    
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
