@@ -5,6 +5,8 @@ import { login } from "../../redux/actions/auth.actions";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../../themes/CustomButton";
+import FormField from "../../components/form.field/FormField";
 
 interface LoginFormValues {
   email: string,
@@ -18,6 +20,13 @@ const LoginForm: React.FC = () => {
     if (token !== null)
       navigate("/profile")
   }, [navigate, token])
+  const validate = Yup.object({
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    password: Yup.string()
+      .required('Password is required'),
+  })
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
       const { setSubmitting } = formikProps;
@@ -31,13 +40,7 @@ const LoginForm: React.FC = () => {
         password: '',
       }}
       validationSchema={
-        Yup.object({
-          email: Yup.string()
-            .email('Invalid email address')
-            .required('Email is required'),
-          password: Yup.string()
-            .required('Password is required'),
-        })
+        validate
       }
       onSubmit={(values: LoginFormValues,
         formikProps: FormikHelpers<LoginFormValues>) => handleSubmitForm(values, formikProps)
@@ -50,17 +53,17 @@ const LoginForm: React.FC = () => {
           name="email"
           type="email"
           placeholder="jane@formik.com"
+          component={FormField}
         />
-        <ErrorMessage className='error' name="email">{(msg) => <p>{msg}</p>}</ErrorMessage>
         <Field
           className='form-item'
           label="Password"
           name="password"
           type="password"
           placeholder="your pass"
+          component={FormField}
         />
-        <ErrorMessage className='error' name="password">{(msg) => <p>{msg}</p>}</ErrorMessage>
-        <button type="submit">Submit</button>
+        <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
       </Form>
     </Formik >
   )
