@@ -21,6 +21,7 @@ export const logout = () => {
 }
 
 export const updateProfile = (user: User) => {
+    console.log(user)
     return axiosInstance.post("auth/update", {...user})
 }
 

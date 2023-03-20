@@ -29,6 +29,13 @@ const RQLoginForm: React.FC = () => {
             queryClient.invalidateQueries('get-current');
         },
     })
+    const validate = Yup.object({
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Email is required'),
+        password: Yup.string()
+            .required('Password is required'),
+    });
     const handleSubmitForm = (values: LoginFormValues,
         formikProps: FormikHelpers<LoginFormValues>) => {
         const { setSubmitting } = formikProps;
@@ -42,13 +49,7 @@ const RQLoginForm: React.FC = () => {
                 password: '',
             }}
             validationSchema={
-                Yup.object({
-                    email: Yup.string()
-                        .email('Invalid email address')
-                        .required('Email is required'),
-                    password: Yup.string()
-                        .required('Password is required'),
-                })
+                validate
             }
             onSubmit={(values: LoginFormValues,
                 formikProps: FormikHelpers<LoginFormValues>) => handleSubmitForm(values, formikProps)

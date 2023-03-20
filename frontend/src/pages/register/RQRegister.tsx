@@ -25,6 +25,21 @@ const RQRegisterForm = () => {
             console.log(err)
         }
     })
+    const validate = Yup.object({
+        firstName: Yup.string()
+            .max(15, 'Must be 15 characters or less')
+            .required('First name is required'),
+        lastName: Yup.string()
+            .max(20, 'Must be 20 characters or less')
+            .required('Last name is required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Email is required'),
+        password: Yup.string()
+            .required('Password is required'),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password')], 'Passwords must match')
+    })
     const handleSubmitForm = (values: RegisterFormValues,
         formikProps: FormikHelpers<RegisterFormValues>) => {
             const { setSubmitting } = formikProps;
@@ -48,21 +63,7 @@ const RQRegisterForm = () => {
                 confirmPassword: ''
             }}
             validationSchema={
-                Yup.object({
-                    firstName: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
-                        .required('First name is required'),
-                    lastName: Yup.string()
-                        .max(20, 'Must be 20 characters or less')
-                        .required('Last name is required'),
-                    email: Yup.string()
-                        .email('Invalid email address')
-                        .required('Email is required'),
-                    password: Yup.string()
-                        .required('Password is required'),
-                    confirmPassword: Yup.string()
-                        .oneOf([Yup.ref('password')], 'Passwords must match')
-                })
+                validate
             }
             onSubmit={(values: RegisterFormValues,
                 formikProps: FormikHelpers<RegisterFormValues>) => handleSubmitForm(values, formikProps)

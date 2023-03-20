@@ -1,6 +1,6 @@
 import React from "react"
 import { User } from "../../models/user.interface"
-import { Formik, FormikHelpers, ErrorMessage, FieldArray } from "formik"
+import { Formik, FormikHelpers, ErrorMessage, FieldArray, Field, FormikProps } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
 import { SketchPicker } from 'react-color';
@@ -89,15 +89,13 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                 formikProps: FormikHelpers<ProfileFormValues>) => handleSubmitForm(values, formikProps)
             }
         >
-            {({ values, setFieldValue }) => (
+            {({ values }) => (
                 <Form className="form">
-                    <FormField required={true} label="First Name" name="firstName" type="text" placeholder="Jane" />
-                    <FormField required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" />
-                    <FormField required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" />
-                    <FormField label="Password" name="password" type="password" placeholder="your pass" />
-                    <FormField label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" />
-                    <FormField label="Posts" name="feedPosts" type="array" />
-                    
+                    <Field required={true} label="First Name" name="firstName" type="text" placeholder="Jane" component={FormField} />
+                    <Field required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" component={FormField} />
+                    <Field required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" component={FormField} />
+                    <Field label="Password" name="password" type="password" placeholder="your pass" component={FormField} />
+                    <Field label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" component={FormField} />                    
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
@@ -137,13 +135,8 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <CustomFormLabel aria-required={true} htmlFor="colorPicker">Color Picker</CustomFormLabel>
-                    <SketchPicker color={values['colorPicker']} onChange={(color, event) => {
-                        setFieldValue('colorPicker', color.hex, true)
-                    }} />
-                    <ErrorMessage className='error' name="colorPicker"/>
+                    <Field required={true} label="Color Picker" name="colorPicker" type="colorPicker" component={FormField} />
                     <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
-
                 </Form>
             )
             }

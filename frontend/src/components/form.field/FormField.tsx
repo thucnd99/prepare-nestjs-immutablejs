@@ -1,23 +1,29 @@
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field, FieldArray, FieldProps } from "formik";
 import React from "react";
 import CustomFormLabel from "../../themes/CustomFormLabel";
-import { FieldProps } from "./field.interface";
+import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
 import { SketchPicker } from "react-color";
+import CustomButton from "../../themes/CustomButton";
+import CustomFormikField from "../../themes/CustomFormItem";
 
-const FormField: React.FC<FieldProps> = (props: FieldProps) => {
+const FormField: React.FC<FieldProps & CustomFieldProps> = ({
+    field,
+    form: { touched, errors, values, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+    ...props
+}) => {
     const renderComponent = () => {
         if (["text", "email", "password", "textarea"].includes(props.type))
-            return <Field
+            return <Field {...field} {...props}
                 className="form-item"
-                name={props.name}
+                name={field.name}
                 type={props.type}
                 placeholder={props.placeholder}
             />
         if (props.type === "select")
             return <>
                 <Field className="form-item"
-                    name={props.name}
+                    {...field} {...props}
                     type={props.type}
                     placeholder={props.placeholder}>
                     {props.dataToRender.map((v: any) =>
@@ -25,14 +31,20 @@ const FormField: React.FC<FieldProps> = (props: FieldProps) => {
                     )}
                 </Field>
             </>
+        if (props.type === "colorPicker")
+            return <>
+                <SketchPicker color={values[field.name]} onChange={(color, event) => {
+                    setFieldValue(field.name, color.hex, true)
+                }} />
+            </>
         if (props.type === "custom")
             return props.renderComponent;
     }
     return (
         <>
-            {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.name}>{props.label}</CustomFormLabel>}
+            {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            <ErrorMessage name={props.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+            {touched[`${field.name}`] && errors[`${field.name}`] && <ErrorMessage name={field.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
         </>
 
     );
