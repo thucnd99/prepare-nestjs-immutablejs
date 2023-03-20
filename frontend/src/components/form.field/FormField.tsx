@@ -1,33 +1,29 @@
-import { ErrorMessage } from "formik";
-import React, { HTMLInputTypeAttribute } from "react";
-import CustomFormikField from "../../themes/CustomFormItem";
+import { ErrorMessage, Field } from "formik";
+import React from "react";
 import CustomFormLabel from "../../themes/CustomFormLabel";
-
-interface FieldProps {
-    label?: string;
-    required?: boolean;
-    name: string;
-    type: string;
-    placeholder?: string;
-    dataToRender?: any;
-    renderComponent?: React.ReactNode;
-    onChange?: React.ChangeEventHandler;
-}
+import { FieldProps } from "./field.interface";
+import "./FormField.scss"
+import { SketchPicker } from "react-color";
 
 const FormField: React.FC<FieldProps> = (props: FieldProps) => {
     const renderComponent = () => {
         if (["text", "email", "password", "textarea"].includes(props.type))
-            return <CustomFormikField
+            return <Field
+                className="form-item"
                 name={props.name}
                 type={props.type}
                 placeholder={props.placeholder}
             />
         if (props.type === "select")
             return <>
-                <CustomFormikField
+                <Field className="form-item"
                     name={props.name}
                     type={props.type}
-                    placeholder={props.placeholder} />
+                    placeholder={props.placeholder}>
+                    {props.dataToRender.map((v: any) =>
+                        <option value={v.value} >{v.display}</option>
+                    )}
+                </Field>
             </>
         if (props.type === "custom")
             return props.renderComponent;

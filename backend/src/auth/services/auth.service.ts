@@ -128,7 +128,7 @@ export class AuthService {
     if (user.password) source.hashedPassword = this.hashPassword(user.password);
     const result = forkJoin(source).pipe(
       map((value: { user: User; hashedPassword: string }) => {
-        if (!value) {
+        if (!value.user) {
           throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         } else {
           value.user.email = user.email;
