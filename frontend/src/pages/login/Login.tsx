@@ -16,7 +16,6 @@ interface LoginFormValues {
 }
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
-  const dp = useDispatch()
   const token = useSelector((state: RootState) => state.auth.token)
   const navigate = useNavigate()
   useEffect(() => {

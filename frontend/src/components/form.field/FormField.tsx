@@ -4,6 +4,9 @@ import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
 import { SketchPicker } from "react-color";
+import { CheckboxData } from "./checkbox.interface";
+import { OptionData } from "./select.interface";
+import { RadioData } from "./radio.interface";
 
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     field,
@@ -23,7 +26,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
                 <Field as='select' className="form-item"
                     {...field} {...props}
                     placeholder={props.placeholder}>
-                    {props.dataToRender.map((v: any) =>
+                    {props.dataToRender.map((v: OptionData) =>
                         <option value={v.value} >{v.display}</option>
                     )}
                 </Field>
@@ -31,14 +34,32 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
         if (props.type === "textarea")
             return <>
                 <Field as='textarea' {...field} {...props}
-                className="form-item"
-                name={field.name}
-                placeholder={props.placeholder}
-            />
+                    className="form-item"
+                    name={field.name}
+                    placeholder={props.placeholder}
+                />
             </>
-        if (props.type === 'checkboxgroup')
+        if (props.type === 'checkboxgroup' && props.dataToRender)
             return <>
-            
+                <div role="group" aria-labelledby="checkbox-group">
+                    {props.dataToRender.map((item: CheckboxData) =>
+                        <label>
+                            <Field type="checkbox" name={field.name} value={item.value} />
+                            {item.display}
+                        </label>
+                    )}
+                </div>
+            </>
+        if (props.type === 'radiogroup' && props.dataToRender)
+            return <>
+                <div role="group" aria-labelledby="my-radio-group">
+                    {props.dataToRender.map((item: RadioData) =>
+                        <label>
+                            <Field type="radio" name={field.name} value={item.value} />
+                            {item.display}
+                        </label>
+                    )}
+                </div>
             </>
         if (props.type === "colorPicker")
             return <>
