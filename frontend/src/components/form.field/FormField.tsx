@@ -40,7 +40,10 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     }
     return (
         <>
-            {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
+                {props.extra}
+            </div>
             {props.renderComponent ? props.renderComponent : renderComponent()}
             {touched[`${field.name}`] && errors[`${field.name}`] && <ErrorMessage name={field.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
         </>

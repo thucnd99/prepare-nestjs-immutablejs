@@ -8,4 +8,5 @@ export interface CustomFieldProps {
     dataToRender?: any;
     renderComponent?: React.ReactNode;
     // onChange?: React.ChangeEventHandler;
+    extra?: React.ReactNode;
 }

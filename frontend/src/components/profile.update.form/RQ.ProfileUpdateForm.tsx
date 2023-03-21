@@ -107,14 +107,16 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
                                                 type="text"
-                                                component={FormField} />
-                                            <CustomButton
-                                                color="red"
-                                                htmlType="button"
-                                                onClick={() => remove(index)}
-                                            >
-                                                X
-                                            </CustomButton>
+                                                component={FormField}
+                                                extra={<CustomButton
+                                                    color="red"
+                                                    htmlType="button"
+                                                    onClick={() => remove(index)}
+                                                >
+                                                    X
+                                                </CustomButton>}
+                                                 />
+                                            
                                             {/* <CustomFormikField
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"

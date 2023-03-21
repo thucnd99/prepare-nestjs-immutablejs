@@ -1,12 +1,10 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage, useField, FormikProps, FormikValues, FormikHelpers } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import "./Register.scss"
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { register } from '../../services/auth.service'
 import CustomButton from '../../themes/CustomButton';
-import CustomFormikField from '../../themes/CustomFormItem';
 import FormField from '../../components/form.field/FormField';
 interface RegisterFormValues {
     firstName: string,
@@ -26,6 +24,13 @@ const RQRegisterForm = () => {
             console.log(err)
         }
     })
+    const initialValues = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    }
     const validate = Yup.object({
         firstName: Yup.string()
             .max(15, 'Must be 15 characters or less')
@@ -56,13 +61,7 @@ const RQRegisterForm = () => {
     return (
         <>
         <Formik
-            initialValues={{
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            }}
+            initialValues={initialValues}
             validationSchema={
                 validate
             }
