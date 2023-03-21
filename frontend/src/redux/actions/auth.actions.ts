@@ -42,42 +42,6 @@ export const login = (email: string, password: string): AppThunk => {
   };
 };
 
-export const viewProfile = (): AppThunk => async (dispatch) => {
-  dispatch(authActions.isLoading());
-  const fetchData = async () => {
-    const response = await authService.viewProfile();
-    if (!response.data) {
-      throw new Error("Could not fetch user data!");
-    }
-    return response.data;
-  };
-  try {
-    const userData = await fetchData();
-    dispatch(authActions.setCurrentUser(userData));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateProfile = (user: User): AppThunk => {
-  return async (dispatch) => {
-    const sendData = async () => {
-      const response = await authService.updateProfile(user);
-      if (!response.data) {
-        throw new Error("Could not update user data!");
-      }
-      return response.data;
-    };
-
-    try {
-      const result = await sendData();
-      if (result) dispatch(authActions.setCurrentUser(result));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 export const logout = (): AppThunk => {
   return (dispatch) => {
     try {

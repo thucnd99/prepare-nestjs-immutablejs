@@ -18,7 +18,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
                 type={props.type}
                 placeholder={props.placeholder}
             />
-        if (props.type === "select")
+        if (props.type === "select" && props.dataToRender)
             return <>
                 <Field className="form-item"
                     {...field} {...props}

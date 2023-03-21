@@ -3,14 +3,12 @@ import { User } from '../../models/user.interface';
 import { RootState } from '../store';
 
 interface AuthState {
-    currentUser: User;
     token: string| null;
     isLoading: boolean;
     isLoggedIn: boolean;
 }
 
 const initialState : AuthState = {
-    currentUser: {},
     token: null,
     isLoading: false,
     isLoggedIn: false,
@@ -23,10 +21,6 @@ const authSlice = createSlice({
       isLoading(state) {
         state.isLoading = true;
       },
-      setCurrentUser: (state, action: PayloadAction<User>) => {
-        state.currentUser = action.payload;
-        state.isLoading = false;
-      },
       setToken: (state, action: PayloadAction<string>) => {
         state.token = action.payload;
         state.isLoading = false;
@@ -36,7 +30,6 @@ const authSlice = createSlice({
         state.isLoading = false;
       },
       logout(state) {
-        state.currentUser = {};
         state.token = null;
         state.isLoading = false;
         state.isLoggedIn=false;
