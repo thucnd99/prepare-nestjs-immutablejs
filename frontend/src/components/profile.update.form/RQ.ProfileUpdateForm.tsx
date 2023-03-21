@@ -1,12 +1,11 @@
 import React from "react"
 import { User } from "../../models/user.interface"
-import { Formik, FormikHelpers, ErrorMessage, FieldArray, Field, Form } from "formik"
+import { Formik, FormikHelpers, FieldArray, Field, Form } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
 import { useMutation, useQueryClient } from "react-query";
 import { updateProfile } from "../../services/auth.service";
 import CustomButton from "../../themes/CustomButton";
-import CustomFormikField from "../../themes/CustomFormItem";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import FormField from "../form.field/FormField";
 interface ProfileProps {
@@ -104,7 +103,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                         <div className="row" key={index}>
                                             <Field required={true}
                                                 label="Body"
-                                                name={`feedPosts.${index}.body`}
+                                                name={`feedPosts[${index}].body`}
                                                 placeholder="Jane Doe"
                                                 type="text"
                                                 component={FormField}

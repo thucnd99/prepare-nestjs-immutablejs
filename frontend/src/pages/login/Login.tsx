@@ -7,7 +7,7 @@ import "./Login.scss"
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../themes/CustomButton";
 import FormField from "../../components/form.field/FormField";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 interface LoginFormValues {

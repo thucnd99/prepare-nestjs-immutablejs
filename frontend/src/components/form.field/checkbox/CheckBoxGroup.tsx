@@ -11,7 +11,10 @@ const CheckBoxGroup: React.FC<FieldProps & CustomFieldProps> = ({
         <div role="group" aria-labelledby="checkbox-group">
             {props.dataToRender.map((item: CheckboxData) =>
                 <label>
-                    <Field  {...field} {...props} type="checkbox" name={field.name} value={item.value} />
+                    <Field  {...field} {...props} type="checkbox"
+                        name={field.name}
+                        checked={field.value.includes(item.value)}
+                        value={item.value} />
                     {item.display}
                 </label>
             )}

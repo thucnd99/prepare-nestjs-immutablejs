@@ -46,6 +46,10 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
         if (props.type === "custom")
             return props.renderComponent;
     }
+    if(field.name===`feedPosts[3].body`) {
+        console.log("ac to arr[3]")
+        console.log(props.form.touched[field.name])
+    }
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -53,7 +57,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
                 {props.extra}
             </div>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            {props.form.touched[`${field.name}`] && props.form.errors[`${field.name}`] && <ErrorMessage name={field.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
+            <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>
 
     );

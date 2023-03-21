@@ -9,9 +9,12 @@ const CheckBox: React.FC<FieldProps & CustomFieldProps> = ({
 }) => {
     return <>
         <label>
-            <Field  {...field} {...props} type="checkbox" name={field.name} value={props.dataToRender.value} />
+            <Field  {...field} {...props} type="checkbox"
+                name={field.name}
+                value={props.dataToRender.value}
+                checked={field.value===props.dataToRender.value} />
             {props.dataToRender.display}
-        </label>        
+        </label>
     </>
 }
 
