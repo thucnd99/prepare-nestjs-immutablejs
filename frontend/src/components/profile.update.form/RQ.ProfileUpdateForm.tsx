@@ -115,18 +115,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 >
                                                     X
                                                 </CustomButton>}
-                                                 />
-                                            
-                                            {/* <CustomFormikField
-                                                name={`feedPosts.${index}.body`}
-                                                placeholder="Jane Doe"
-                                                type="text"
                                             />
-                                            <ErrorMessage
-                                                className='error'
-                                                name={`feedPosts.${index}.body`}
-                                                component="div"
-                                            /> */}
                                         </div>
                                     ))}
 
@@ -142,7 +131,9 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                         )}
                     </FieldArray>
                     <Field required={true} label="Color Picker" name="colorPicker" type="colorPicker" component={FormField} />
-                    <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
+                    <div>
+                        <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
+                    </div>
                 </Form>
             )
             }
