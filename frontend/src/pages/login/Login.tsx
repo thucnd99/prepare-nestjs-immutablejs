@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/actions/auth.actions";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../themes/CustomButton";
 import FormField from "../../components/form.field/FormField";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface LoginFormValues {
   email: string,
@@ -14,7 +16,8 @@ interface LoginFormValues {
 }
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
-  const token = useAppSelector((state) => state.auth.token)
+  const dp = useDispatch()
+  const token = useSelector((state: RootState) => state.auth.token)
   const navigate = useNavigate()
   useEffect(() => {
     if (token !== null)

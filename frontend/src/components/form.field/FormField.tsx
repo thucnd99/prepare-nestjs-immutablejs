@@ -20,14 +20,25 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
             />
         if (props.type === "select" && props.dataToRender)
             return <>
-                <Field className="form-item"
+                <Field as='select' className="form-item"
                     {...field} {...props}
-                    type={props.type}
                     placeholder={props.placeholder}>
                     {props.dataToRender.map((v: any) =>
                         <option value={v.value} >{v.display}</option>
                     )}
                 </Field>
+            </>
+        if (props.type === "textarea")
+            return <>
+                <Field as='textarea' {...field} {...props}
+                className="form-item"
+                name={field.name}
+                placeholder={props.placeholder}
+            />
+            </>
+        if (props.type === 'checkboxgroup')
+            return <>
+            
             </>
         if (props.type === "colorPicker")
             return <>

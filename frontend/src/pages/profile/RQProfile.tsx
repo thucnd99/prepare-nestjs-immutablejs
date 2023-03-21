@@ -4,16 +4,16 @@ import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";
 import RQProfileUpdateForm from "../../components/profile.update.form/RQ.ProfileUpdateForm";
 import Loading from "../../components/loading/Loading";
-import CustomButton from "../../themes/CustomButton";
-import { useAppSelector } from "../../hooks/hooks";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const { Paragraph } = Typography;
 const RQProfile: React.FC = () => {
     const { isLoading, isError, data, error } = useQuery('view-profile', viewProfile)
     const user = data?.data
     const [open, setOpen] = useState(false);
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn)
     const navigate = useNavigate()
     useEffect(() => {
         if (isLoggedIn === null) {
