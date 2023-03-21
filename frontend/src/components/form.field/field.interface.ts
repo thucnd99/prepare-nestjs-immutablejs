@@ -1,4 +1,3 @@
-import { FieldAttributes } from 'formik';
 import React from 'react';
 export interface CustomFieldProps {
     label?: string;

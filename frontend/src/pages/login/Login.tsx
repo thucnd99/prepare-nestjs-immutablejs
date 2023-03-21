@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/actions/auth.actions";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -20,6 +20,10 @@ const LoginForm: React.FC = () => {
     if (token !== null)
       navigate("/profile")
   }, [navigate, token])
+  const initialValues = {
+    email: '',
+    password: '',
+  }
   const validate = Yup.object({
     email: Yup.string()
       .email('Invalid email address')
@@ -35,10 +39,7 @@ const LoginForm: React.FC = () => {
   }
   return (
     <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
+      initialValues={initialValues}
       validationSchema={
         validate
       }

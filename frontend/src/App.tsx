@@ -1,18 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import RegisterForm from './pages/register/Register';
 import LoginForm from './pages/login/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layout/Layout';
 import Logout from './pages/logout/Logout';
 import Home from './pages/home/Home';
-import Profile from './pages/profile/Profile';
-import RQLoginForm from './pages/login/RQLogin';
-import RQLogout from './pages/logout/RQLogout';
 import RQRegisterForm from './pages/register/RQRegister';
 import RQProfile from './pages/profile/RQProfile';
-import RQMainLayout from './layout/RQLayout';
 
 function App() {
   return (

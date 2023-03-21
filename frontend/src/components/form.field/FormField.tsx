@@ -1,11 +1,9 @@
-import { ErrorMessage, Field, FieldArray, FieldProps } from "formik";
+import { ErrorMessage, Field, FieldProps } from "formik";
 import React from "react";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
 import { SketchPicker } from "react-color";
-import CustomButton from "../../themes/CustomButton";
-import CustomFormikField from "../../themes/CustomFormItem";
 
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     field,

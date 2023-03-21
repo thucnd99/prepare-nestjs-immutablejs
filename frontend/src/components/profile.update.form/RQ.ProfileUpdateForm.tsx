@@ -1,15 +1,13 @@
 import React from "react"
 import { User } from "../../models/user.interface"
-import { Formik, FormikHelpers, ErrorMessage, FieldArray, Field, FormikProps } from "formik"
+import { Formik, FormikHelpers, ErrorMessage, FieldArray, Field, Form } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
-import { SketchPicker } from 'react-color';
 import { useMutation, useQueryClient } from "react-query";
 import { updateProfile } from "../../services/auth.service";
 import CustomButton from "../../themes/CustomButton";
 import CustomFormikField from "../../themes/CustomFormItem";
 import CustomFormLabel from "../../themes/CustomFormLabel";
-import { Form } from "antd";
 import FormField from "../form.field/FormField";
 interface ProfileProps {
     user: User
@@ -37,6 +35,15 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
             console.log(error)
         },
     })
+    const initialValues = {
+        firstName: userData.firstName || '',
+        lastName: userData.lastName || '',
+        email: userData.email || '',
+        password: '',
+        confirmPassword: '',
+        feedPosts: userData.feedPosts || [],
+        colorPicker: '#000',
+    };
     const handleSubmitForm = (values: ProfileFormValues,
         formikProps: FormikHelpers<ProfileFormValues>) => {
         const { setSubmitting } = formikProps;
@@ -75,15 +82,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     })
     return (
         <Formik
-            initialValues={{
-                firstName: userData.firstName || '',
-                lastName: userData.lastName || '',
-                email: userData.email || '',
-                password: '',
-                confirmPassword: '',
-                feedPosts: userData.feedPosts || [],
-                colorPicker: '#000',
-            }}
+            initialValues={initialValues}
             validationSchema={validate}
             onSubmit={(values: ProfileFormValues,
                 formikProps: FormikHelpers<ProfileFormValues>) => handleSubmitForm(values, formikProps)
@@ -95,7 +94,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                     <Field required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" component={FormField} />
                     <Field required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" component={FormField} />
                     <Field label="Password" name="password" type="password" placeholder="your pass" component={FormField} />
-                    <Field label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" component={FormField} />                    
+                    <Field label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" component={FormField} />
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
@@ -103,17 +102,20 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                 {values.feedPosts.length > 0 &&
                                     values.feedPosts.map((post, index) => (
                                         <div className="row" key={index}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <CustomFormLabel aria-required={true} htmlFor={`feedPosts.${index}.body`}>Body</CustomFormLabel>
-                                                <CustomButton
-                                                    color="red"
-                                                    htmlType="button"
-                                                    onClick={() => remove(index)}
-                                                >
-                                                    X
-                                                </CustomButton>
-                                            </div>
-                                            <CustomFormikField
+                                            <Field required={true}
+                                                label="Body"
+                                                name={`feedPosts.${index}.body`}
+                                                placeholder="Jane Doe"
+                                                type="text"
+                                                component={FormField} />
+                                            <CustomButton
+                                                color="red"
+                                                htmlType="button"
+                                                onClick={() => remove(index)}
+                                            >
+                                                X
+                                            </CustomButton>
+                                            {/* <CustomFormikField
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
                                                 type="text"
@@ -122,9 +124,10 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 className='error'
                                                 name={`feedPosts.${index}.body`}
                                                 component="div"
-                                            />
+                                            /> */}
                                         </div>
                                     ))}
+
                                 <CustomButton
                                     color="mediumseagreen"
                                     htmlType="button"
@@ -132,6 +135,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                 >
                                     Add Post
                                 </CustomButton>
+
                             </div>
                         )}
                     </FieldArray>
