@@ -1,71 +1,47 @@
-import { ErrorMessage, Field, FieldProps } from "formik";
+import { ErrorMessage, FieldProps } from "formik";
 import React from "react";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
-import { SketchPicker } from "react-color";
-import { CheckboxData } from "./checkbox.interface";
-import { OptionData } from "./select.interface";
-import { RadioData } from "./radio.interface";
+import Input from "./Input";
+import Select from "./select/Select";
+import TextArea from "./textarea/Textarea";
+import CheckBoxGroup from "./checkbox/CheckBoxGroup";
+import RadioGroup from "./radio/RadioGroup";
+import ColorPicker from "./color.picker/ColorPicker";
+import CheckBox from "./checkbox/Checkbox";
+import Radio from "./radio/Radio";
 
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     field,
-    form: { touched, errors, values, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     ...props
 }) => {
     const renderComponent = () => {
-        if (["text", "email", "password", "textarea"].includes(props.type))
-            return <Field {...field} {...props}
-                className="form-item"
-                name={field.name}
-                type={props.type}
-                placeholder={props.placeholder}
-            />
+        if (["text", "email", "password"].includes(props.type))
+            return  <Input {...field} {...props} field={field} type={props.type} />
         if (props.type === "select" && props.dataToRender)
             return <>
-                <Field as='select' className="form-item"
-                    {...field} {...props}
-                    placeholder={props.placeholder}>
-                    {props.dataToRender.map((v: OptionData) =>
-                        <option value={v.value} >{v.display}</option>
-                    )}
-                </Field>
+                <Select {...field} {...props} field={field} type={props.type} />
             </>
         if (props.type === "textarea")
             return <>
-                <Field as='textarea' {...field} {...props}
-                    className="form-item"
-                    name={field.name}
-                    placeholder={props.placeholder}
-                />
+                <TextArea {...field} {...props} field={field} type={props.type} />
             </>
+        if(props.type === 'checkbox')
+            return <CheckBox {...field} {...props} field={field} type={props.type}  />
         if (props.type === 'checkboxgroup' && props.dataToRender)
             return <>
-                <div role="group" aria-labelledby="checkbox-group">
-                    {props.dataToRender.map((item: CheckboxData) =>
-                        <label>
-                            <Field type="checkbox" name={field.name} value={item.value} />
-                            {item.display}
-                        </label>
-                    )}
-                </div>
+                <CheckBoxGroup {...field} {...props} field={field} type={props.type}  />
             </>
+        if(props.type === 'radio')
+            return <Radio {...field} {...props} field={field} type={props.type}  />
         if (props.type === 'radiogroup' && props.dataToRender)
             return <>
-                <div role="group" aria-labelledby="my-radio-group">
-                    {props.dataToRender.map((item: RadioData) =>
-                        <label>
-                            <Field type="radio" name={field.name} value={item.value} />
-                            {item.display}
-                        </label>
-                    )}
-                </div>
+                <RadioGroup {...field} {...props} field={field} type={props.type} />
             </>
         if (props.type === "colorPicker")
             return <>
-                <SketchPicker color={values[field.name]} onChange={(color, event) => {
-                    setFieldValue(field.name, color.hex, true)
-                }} />
+                <ColorPicker {...field} {...props} field={field} type={props.type} />
             </>
         if (props.type === "custom")
             return props.renderComponent;
@@ -77,7 +53,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
                 {props.extra}
             </div>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            {touched[`${field.name}`] && errors[`${field.name}`] && <ErrorMessage name={field.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
+            {props.form.touched[`${field.name}`] && props.form.errors[`${field.name}`] && <ErrorMessage name={field.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
         </>
 
     );

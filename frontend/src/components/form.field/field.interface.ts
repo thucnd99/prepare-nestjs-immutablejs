@@ -1,14 +1,14 @@
 import React from 'react';
-import { CheckboxData } from './checkbox.interface';
-import { OptionData } from './select.interface';
-import { RadioData } from './radio.interface';
+import { CheckboxData } from './checkbox/checkbox.interface';
+import { OptionData } from './select/select.interface';
+import { RadioData } from './radio/radio.interface';
 export interface CustomFieldProps {
     label?: string;
     required?: boolean;
     // name: string;
     type: string;
     placeholder?: string;
-    dataToRender?: CheckboxData[] | OptionData[] | RadioData[] | any;
+    dataToRender?: CheckboxData[] | CheckboxData | OptionData[] | RadioData[] | RadioData | any;
     renderComponent?: React.ReactNode;
     // onChange?: React.ChangeEventHandler;
     extra?: React.ReactNode;
