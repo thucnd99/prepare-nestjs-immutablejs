@@ -71,6 +71,7 @@ const RQRegisterForm = () => {
         >
             <Form className='form'>
                 <Field
+                    required={true}
                     label="First Name"
                     name="firstName"
                     type="text"
@@ -78,6 +79,7 @@ const RQRegisterForm = () => {
                     component={FormField}
                 />
                 <Field
+                    required={true}
                     label="Last Name"
                     name="lastName"
                     type="text"
@@ -85,6 +87,7 @@ const RQRegisterForm = () => {
                     component={FormField}
                 />
                 <Field
+                    required={true}
                     label="Email Address"
                     name="email"
                     type="email"
@@ -92,6 +95,7 @@ const RQRegisterForm = () => {
                     component={FormField}
                 />
                 <Field
+                    required={true}
                     label="Password"
                     name="password"
                     type="password"
@@ -99,13 +103,14 @@ const RQRegisterForm = () => {
                     component={FormField}
                 />
                 <Field
+                    required={true}
                     label="Confirm password"
                     name="confirmPassword"
                     type="password"
                     placeholder="confirm your pass"
                     component={FormField}
                 />
-                <CustomButton htmlType="submit">Submit</CustomButton>
+                <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
             </Form>
         </Formik >
         </>
