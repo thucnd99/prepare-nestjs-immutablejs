@@ -18,7 +18,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
 }) => {
     const renderComponent = () => {
         if (["text", "email", "password"].includes(props.type))
-            return  <Input {...field} {...props} field={field} type={props.type} />
+            return <Input {...field} {...props} field={field} type={props.type} />
         if (props.type === "select" && props.dataToRender)
             return <>
                 <Select {...field} {...props} field={field} type={props.type} />
@@ -27,14 +27,14 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
             return <>
                 <TextArea {...field} {...props} field={field} type={props.type} />
             </>
-        if(props.type === 'checkbox')
-            return <CheckBox {...field} {...props} field={field} type={props.type}  />
+        if (props.type === 'checkbox')
+            return <CheckBox {...field} {...props} field={field} type={props.type} />
         if (props.type === 'checkboxgroup' && props.dataToRender)
             return <>
-                <CheckBoxGroup {...field} {...props} field={field} type={props.type}  />
+                <CheckBoxGroup {...field} {...props} field={field} type={props.type} />
             </>
-        if(props.type === 'radio')
-            return <Radio {...field} {...props} field={field} type={props.type}  />
+        if (props.type === 'radio')
+            return <Radio {...field} {...props} field={field} type={props.type} />
         if (props.type === 'radiogroup' && props.dataToRender)
             return <>
                 <RadioGroup {...field} {...props} field={field} type={props.type} />
@@ -48,12 +48,18 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     }
     return (
         <>
-            <div className="form-item-label">
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end'
+            }}>
                 {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
-                {props.extra}
+                <div>
+                    {props.extra}
+                </div>
             </div>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            {props.form.touched[field.name] && props.form.errors[field.name] && <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
+            <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>
 
     );

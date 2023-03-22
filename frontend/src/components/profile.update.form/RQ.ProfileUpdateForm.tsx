@@ -103,7 +103,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                         <div className="row" key={index}>
                                             <Field required={true}
                                                 label="Body"
-                                                name={`feedPosts[${index}].body`}
+                                                name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
                                                 type="text"
                                                 component={FormField}
