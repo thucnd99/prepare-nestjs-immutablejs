@@ -16,7 +16,7 @@ const RQProfile: React.FC = () => {
     const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn)
     const navigate = useNavigate()
     useEffect(() => {
-        if (isLoggedIn === null) {
+        if (!isLoggedIn) {
             navigate("/login")
         }
     }, [navigate, isLoggedIn]);
