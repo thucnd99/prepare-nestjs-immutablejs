@@ -12,7 +12,7 @@ const Select: React.FC<FieldProps & CustomFieldProps> = ({
             {...field} {...props}
             placeholder={props.placeholder}>
             {props.dataToRender.map((v: OptionData) =>
-                <option value={v.value} >{v.display}</option>
+                <option selected={field.value === v.value} value={v.value} >{v.display}</option>
             )}
         </Field>
     </>

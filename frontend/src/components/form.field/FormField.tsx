@@ -13,37 +13,37 @@ import CheckBox from "./checkbox/Checkbox";
 import Radio from "./radio/Radio";
 
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
-    field,
+    type,
     ...props
 }) => {
     const renderComponent = () => {
-        if (["text", "email", "password"].includes(props.type))
-            return <Input {...field} {...props} field={field} type={props.type} />
-        if (props.type === "select" && props.dataToRender)
+        if (["text", "email", "password"].includes(type))
+            return <Input {...props} type={type} />
+        if (type === "select" && props.dataToRender)
             return <>
-                <Select {...field} {...props} field={field} type={props.type} />
+                <Select {...props} type={type} />
             </>
-        if (props.type === "textarea")
+        if (type === "textarea")
             return <>
-                <TextArea {...field} {...props} field={field} type={props.type} />
+                <TextArea {...props} type={type} />
             </>
-        if (props.type === 'checkbox')
-            return <CheckBox {...field} {...props} field={field} type={props.type} />
-        if (props.type === 'checkboxgroup' && props.dataToRender)
+        if (type === 'checkbox')
+            return <CheckBox {...props} type={type} />
+        if (type === 'checkboxgroup' && props.dataToRender)
             return <>
-                <CheckBoxGroup {...field} {...props} field={field} type={props.type} />
+                <CheckBoxGroup {...props} type={type} />
             </>
-        if (props.type === 'radio')
-            return <Radio {...field} {...props} field={field} type={props.type} />
-        if (props.type === 'radiogroup' && props.dataToRender)
+        if (type === 'radio')
+            return <Radio {...props} type={type} />
+        if (type === 'radiogroup' && props.dataToRender)
             return <>
-                <RadioGroup {...field} {...props} field={field} type={props.type} />
+                <RadioGroup {...props} type={type} />
             </>
-        if (props.type === "colorPicker")
+        if (type === "colorPicker")
             return <>
-                <ColorPicker {...field} {...props} field={field} type={props.type} />
+                <ColorPicker {...props} type={type} />
             </>
-        if (props.type === "custom")
+        if (type === "custom")
             return props.renderComponent;
     }
     return (
@@ -53,13 +53,13 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
                 justifyContent: 'space-between',
                 alignItems: 'flex-end'
             }}>
-                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
+                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.field.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>
             </div>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+            <ErrorMessage name={`${props.field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>
 
     );

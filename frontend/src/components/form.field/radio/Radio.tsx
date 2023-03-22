@@ -9,7 +9,7 @@ const Radio: React.FC<FieldProps & CustomFieldProps> = ({
 }) => {
     return <>
         <label>
-            <Field {...field} {...props} type="radio" name={field.name} value={props.dataToRender.value} />
+            <Field {...field} {...props} type="radio" name={field.name} checked={field.value === props.dataToRender.value} value={props.dataToRender.value} />
             {props.dataToRender.display}
         </label>
     </>
