@@ -1,7 +1,7 @@
-import { FeedPost } from "./post.interface";
+import { FeedPost } from "../post.interface";
 
-export interface User {
-  id?: number;
+export interface UpdateUser {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;

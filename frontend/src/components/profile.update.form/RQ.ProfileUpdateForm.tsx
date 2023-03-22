@@ -1,5 +1,5 @@
 import React from "react"
-import { User } from "../../models/user.interface"
+import { User } from "../../models/user/user.interface"
 import { Formik, FormikHelpers, FieldArray, Field, Form } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
@@ -8,8 +8,9 @@ import { updateProfile } from "../../services/auth.service";
 import CustomButton from "../../themes/CustomButton";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import FormField from "../form.field/FormField";
+import { UpdateUser } from "../../models/user/update.user.interface";
 interface ProfileProps {
-    user: User
+    user: UpdateUser
     // many many
 }
 interface ProfileFormValues {
@@ -46,7 +47,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     const handleSubmitForm = (values: ProfileFormValues,
         formikProps: FormikHelpers<ProfileFormValues>) => {
         const { setSubmitting } = formikProps;
-        const data: User = {
+        const data: UpdateUser = {
             id: userData.id,
             firstName: values.firstName,
             lastName: values.lastName,
