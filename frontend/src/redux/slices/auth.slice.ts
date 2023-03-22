@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../models/user.interface';
 import { RootState } from '../store';
 
 interface AuthState {
