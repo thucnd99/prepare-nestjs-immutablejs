@@ -2,8 +2,8 @@ import * as authService from "../../services/auth.service";
 import { authActions } from "../slices/auth.slice";
 import { AppThunk } from "../store";
 
-export const login = (email: string, password: string): AppThunk => {
-  return async (dispatch) => {
+export const login = (email: string, password: string) : AppThunk => 
+   async (dispatch) => {
     dispatch(authActions.isLoading);
     const sendRequest = async () => {
       const response = await authService.login(email, password);
@@ -20,7 +20,7 @@ export const login = (email: string, password: string): AppThunk => {
       console.log(error);
     }
   };
-};
+
 
 export const logout = (): AppThunk => {
   return (dispatch) => {
