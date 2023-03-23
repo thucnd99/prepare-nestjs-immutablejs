@@ -106,7 +106,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 label="Body"
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
-                                                type="text"
+                                                type="textarea"
                                                 component={FormField}
                                                 extra={<CustomButton
                                                     color="red"

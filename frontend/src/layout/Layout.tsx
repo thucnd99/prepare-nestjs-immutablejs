@@ -2,7 +2,7 @@ import React from "react"
 import { Button, Layout, Space } from 'antd';
 import { Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux.toolkit/store";
 
 const { Header, Content, Footer } = Layout;
 

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { login } from "../../redux/actions/auth.actions";
+import { login } from "../../redux.toolkit/actions/auth.actions";
 import { useAppDispatch } from "../../hooks/hooks";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../themes/CustomButton";
 import FormField from "../../components/form.field/FormField";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../redux.toolkit/store";
 
 interface LoginFormValues {
   email: string,
@@ -51,6 +51,7 @@ const LoginForm: React.FC = () => {
     >
       <Form className='form'>
         <Field
+          required={true}
           className='form-item'
           label="Email Address"
           name="email"
@@ -59,6 +60,7 @@ const LoginForm: React.FC = () => {
           component={FormField}
         />
         <Field
+          required={true}
           className='form-item'
           label="Password"
           name="password"

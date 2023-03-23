@@ -1,6 +1,6 @@
 import axios from "axios";
-import { store } from "../redux/store";
-import { logout } from "../redux/actions/auth.actions";
+import { store } from "../redux.toolkit/store";
+import { logout } from "../redux.toolkit/actions/auth.actions";
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
