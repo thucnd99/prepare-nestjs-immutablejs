@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
-import { useAppDispatch } from "../../hooks/hooks"
 import { useNavigate } from "react-router-dom"
-import { logout } from "../../redux.toolkit/actions/auth.actions"
+import { logout } from "../../redux/actions.creators/auth.action.creator"
+import { useDispatch } from "react-redux"
 
 const Logout = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
-        dispatch(logout())
+        dispatch<any>(logout())
         navigate("/")
       }, [dispatch, navigate])
     return (<>Logout...</>)
