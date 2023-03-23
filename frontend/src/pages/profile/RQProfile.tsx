@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Button, Modal, Typography } from "antd"
 import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";
@@ -13,7 +13,7 @@ const RQProfile: React.FC = () => {
     const { isLoading, isError, data, error } = useQuery('view-profile', viewProfile)
     const user = data?.data
     const [open, setOpen] = useState(false);
-    const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector((state:RootState) => state.auth.get('isLoggedIn'))
     const navigate = useNavigate()
     useEffect(() => {
         if (!isLoggedIn) {

@@ -15,12 +15,12 @@ interface LoginFormValues {
 }
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch()
-  const token = useSelector((state: RootState) => state.auth.token)
+  const isLoggedIn = useSelector((state: RootState) => state.auth.get('isLoggedIn'))
   const navigate = useNavigate()
   useEffect(() => {
-    if (token !== null)
+    if (isLoggedIn)
       navigate("/profile")
-  }, [navigate, token])
+  }, [navigate, isLoggedIn])
   const initialValues = {
     email: '',
     password: '',

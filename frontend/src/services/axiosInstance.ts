@@ -13,7 +13,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const state = store.getState();
-  const token = state.auth.token;
+  // const token = state.auth.token;
+  const token = state.auth.get('token');
   config.headers.Authorization = "Bearer " + token;
   config.params = config.params || [];
   return config;
@@ -26,7 +27,6 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       store.dispatch<any>(logout());
-      console.log("need to login")
     }
     return Promise.reject(error.response.data);
   }
