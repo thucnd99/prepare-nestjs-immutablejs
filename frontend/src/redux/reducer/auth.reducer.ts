@@ -1,6 +1,6 @@
 import { AuthActionType } from "../action.types/auth.action.types";
 import { Action } from "../action/action";
-
+import {} from "immutable"
 interface AuthState {
     token: string| null;
     isLoggedIn: boolean;
