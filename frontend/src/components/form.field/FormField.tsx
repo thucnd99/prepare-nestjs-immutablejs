@@ -4,42 +4,53 @@ import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
 import { CheckBox, CheckBoxGroup, ColorPicker, CustomInput, Radio, RadioGroup, Select, TextArea } from ".";
+import { InputTypes } from "./InputType";
+
+type InputType = typeof CheckBox |
+    typeof CheckBoxGroup |
+    typeof ColorPicker |
+    typeof CustomInput |
+    typeof Radio |
+    typeof RadioGroup |
+    typeof Select |
+    typeof TextArea | null
+
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     type,
     ...props
 }) => {
-    let SInput = () => {
-        
+    const setInputType = (): InputType => {
+        switch (type) {
+            case InputTypes.TEXT: case InputTypes.EMAIL: case InputTypes.PASSWORD:
+                return CustomInput;
+            case InputTypes.SELECT:
+                return Select;
+            case InputTypes.TEXTAREA:
+                return TextArea;
+            case InputTypes.CHECKBOX:
+                return CheckBox;
+            case InputTypes.CHECKBOXGROUP:
+                return CheckBoxGroup;
+            case InputTypes.RADIO:
+                return Radio;
+            case InputTypes.RADIOGROUP:
+                return RadioGroup;
+            case InputTypes.COLORPICKER:
+                return ColorPicker;
+            default:
+                return null;
+        }
     }
+    const Input: InputType = setInputType()
+
     const renderComponent = () => {
-        if (["text", "email", "password"].includes(type))
-            return <CustomInput {...props} type={type} />
-        if (type === "select" && props.dataToRender)
-            return <>
-                <Select {...props} type={type} />
-            </>
-        if (type === "textarea")
-            return <>
-                <TextArea {...props} type={type} />
-            </>
-        if (type === 'checkbox')
-            return <CheckBox {...props} type={type} />
-        if (type === 'checkboxgroup' && props.dataToRender)
-            return <>
-                <CheckBoxGroup {...props} type={type} />
-            </>
-        if (type === 'radio')
-            return <Radio {...props} type={type} />
-        if (type === 'radiogroup' && props.dataToRender)
-            return <>
-                <RadioGroup {...props} type={type} />
-            </>
-        if (type === "colorPicker")
-            return <>
-                <ColorPicker {...props} type={type} />
-            </>
         if (type === "custom")
             return props.renderComponent;
+        if (Input != null)
+            return <>
+                <Input {...props} type={type} />
+            </>
+        else <></>
     }
     return (
         <>
