@@ -1,7 +1,12 @@
+import { AuthActionType } from "../action.types/auth.action.types";
 
-interface AuthAction {
-    type: string;
-    payload?: string;
+interface LoginAction {
+    type: AuthActionType.LOGIN,
+    payload: string;
 }
 
-export type Action = AuthAction // | SomeAction....
+interface LogoutAction {
+    type: AuthActionType.LOGOUT
+}
+
+export type Action = LoginAction | LogoutAction // | SomeAction....

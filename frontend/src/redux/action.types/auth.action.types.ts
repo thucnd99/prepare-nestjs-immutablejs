@@ -1,2 +1,4 @@
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export enum AuthActionType {
+  LOGIN = "LOGIN",
+  LOGOUT = "LOGOUT",
+}

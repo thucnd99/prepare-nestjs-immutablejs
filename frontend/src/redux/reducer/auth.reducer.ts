@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../action.types/auth.action.types";
+import { AuthActionType } from "../action.types/auth.action.types";
 import { Action } from "../action/action";
 
 interface AuthState {
@@ -14,9 +14,9 @@ const initialState : AuthState = {
 const authReducer = (state: AuthState = initialState, action: Action ) => {
     switch (action.type) {
 
-        case LOGIN:
+        case AuthActionType.LOGIN:
             return { ...state, isLoggedIn: true, token: action.payload  };
-        case LOGOUT: 
+        case AuthActionType.LOGOUT: 
             return { ...state, isLoggedIn: false, token: null };
         default:
             return state;
