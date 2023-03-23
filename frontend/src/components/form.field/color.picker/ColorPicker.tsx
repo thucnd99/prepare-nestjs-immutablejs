@@ -1,5 +1,5 @@
 import { FieldProps } from 'formik';
-import React from 'react';
+import React, {memo} from 'react';
 import { CustomFieldProps } from '../field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
@@ -19,4 +19,4 @@ const ColorPicker: React.FC<FieldProps & CustomFieldProps> = ({
     </>
 }
 
-export default ColorPicker;
+export default memo(ColorPicker);

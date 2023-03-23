@@ -1,5 +1,5 @@
 import { Field, FieldProps } from 'formik';
-import React from 'react';
+import React, { memo } from 'react';
 import { CustomFieldProps } from './field.interface';
 
 const Input: React.FC<FieldProps & CustomFieldProps> = ({
@@ -17,4 +17,4 @@ const Input: React.FC<FieldProps & CustomFieldProps> = ({
     </>
 }
 
-export default Input;
+export default memo(Input);

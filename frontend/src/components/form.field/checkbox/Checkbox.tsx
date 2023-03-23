@@ -1,5 +1,5 @@
 import { FieldProps, Field, ErrorMessage } from "formik";
-import React from "react";
+import React, {memo} from "react";
 import { CustomFieldProps } from "../field.interface";
 
 const CheckBox: React.FC<FieldProps & CustomFieldProps> = ({
@@ -18,4 +18,4 @@ const CheckBox: React.FC<FieldProps & CustomFieldProps> = ({
     </>
 }
 
-export default CheckBox;
+export default memo(CheckBox);

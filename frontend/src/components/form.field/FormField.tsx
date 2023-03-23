@@ -3,22 +3,17 @@ import React from "react";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
-import Input from "./Input";
-import Select from "./select/Select";
-import TextArea from "./textarea/Textarea";
-import CheckBoxGroup from "./checkbox/CheckBoxGroup";
-import RadioGroup from "./radio/RadioGroup";
-import ColorPicker from "./color.picker/ColorPicker";
-import CheckBox from "./checkbox/Checkbox";
-import Radio from "./radio/Radio";
-
+import { CheckBox, CheckBoxGroup, ColorPicker, CustomInput, Radio, RadioGroup, Select, TextArea } from ".";
 const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     type,
     ...props
 }) => {
+    let SInput = () => {
+        
+    }
     const renderComponent = () => {
         if (["text", "email", "password"].includes(type))
-            return <Input {...props} type={type} />
+            return <CustomInput {...props} type={type} />
         if (type === "select" && props.dataToRender)
             return <>
                 <Select {...props} type={type} />

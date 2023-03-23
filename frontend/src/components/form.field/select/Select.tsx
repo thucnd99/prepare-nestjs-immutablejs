@@ -1,5 +1,5 @@
 import { Field, FieldProps } from 'formik';
-import React from 'react';
+import React, {memo} from 'react';
 import { CustomFieldProps } from '../field.interface';
 import { OptionData } from './select.interface';
 
@@ -18,4 +18,4 @@ const Select: React.FC<FieldProps & CustomFieldProps> = ({
     </>
 }
 
-export default Select;
+export default memo(Select);

@@ -1,5 +1,5 @@
 import { Field, FieldProps } from 'formik';
-import React from 'react';
+import React, {memo} from 'react';
 import { CustomFieldProps } from '../field.interface';
 import { RadioData } from './radio.interface';
 
@@ -20,4 +20,4 @@ const RadioGroup: React.FC<FieldProps & CustomFieldProps> = ({
     </>
 }
 
-export default RadioGroup;
+export default memo(RadioGroup);

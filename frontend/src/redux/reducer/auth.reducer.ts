@@ -1,18 +1,6 @@
 import { AuthActionType } from "../action.types/auth.action.types";
 import { Action } from "../action/action";
-import { Record, Map } from "immutable";
-
-interface AuthState {
-    token: string| null;
-    isLoggedIn: boolean;
-}
-
-const AuthRecord = Record({
-    token: null,
-    isLoggedIn: false,
-})
-
-
+import { Map } from "immutable";
 
 const initialState = Map({
     token: '',
@@ -27,13 +15,11 @@ const authReducer = (state = initialState, action: Action ) => {
                 'isLoggedIn': true
             });
         }
-            // return { ...state, isLoggedIn: true, token: action.payload  };
         case AuthActionType.LOGOUT: 
         return state.merge({
             'token': '',
             'isLoggedIn': false
         });
-            // return { ...state, isLoggedIn: false, token: null };
         default:
             return state;
     }
