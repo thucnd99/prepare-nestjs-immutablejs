@@ -1,6 +1,8 @@
 import axios from "axios";
-import { store } from "../redux.toolkit/store";
-import { logout } from "../redux.toolkit/actions/auth.actions";
+// import { store } from "../redux.toolkit/store";
+// import { logout } from "../redux.toolkit/actions/auth.actions";
+import {store} from "../redux/store"
+import { logout } from "../redux/actions.creators/auth.action.creator";
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -23,7 +25,8 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      store.dispatch(logout);
+      store.dispatch<any>(logout());
+      console.log("need to login")
     }
     return Promise.reject(error.response.data);
   }

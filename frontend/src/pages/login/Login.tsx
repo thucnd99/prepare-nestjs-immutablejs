@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { login } from "../../redux.toolkit/actions/auth.actions";
-import { useAppDispatch } from "../../hooks/hooks";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../themes/CustomButton";
 import FormField from "../../components/form.field/FormField";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux.toolkit/store";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions.creators/auth.action.creator";
+import { RootState } from "../../redux/store";
 
 interface LoginFormValues {
   email: string,
   password: string,
 }
 const LoginForm: React.FC = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
   const token = useSelector((state: RootState) => state.auth.token)
   const navigate = useNavigate()
   useEffect(() => {
@@ -36,7 +35,7 @@ const LoginForm: React.FC = () => {
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
       const { setSubmitting } = formikProps;
-      dispatch(login(values.email, values.password))
+      dispatch<any>(login(values.email, values.password))
       setSubmitting(false);
   }
   return (

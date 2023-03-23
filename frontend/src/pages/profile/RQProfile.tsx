@@ -6,7 +6,7 @@ import RQProfileUpdateForm from "../../components/profile.update.form/RQ.Profile
 import Loading from "../../components/loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux.toolkit/store";
+import { RootState } from "../../redux/store";
 
 const { Paragraph } = Typography;
 const RQProfile: React.FC = () => {
