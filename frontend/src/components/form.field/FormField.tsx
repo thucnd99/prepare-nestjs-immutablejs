@@ -55,6 +55,7 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     return (
         <>
             <div style={{
+                margin:"1em 0",
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end'

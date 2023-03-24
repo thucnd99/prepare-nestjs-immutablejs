@@ -11,10 +11,10 @@ const ColorPicker: React.FC<FieldProps & CustomFieldProps> = ({
     ...props
 }) => {
     return <>
-        <Popover content={<SketchPicker color={values[field.name]} onChange={(color, event) => {
+        <Popover content={<SketchPicker color={field.value} onChange={(color, event) => {
             setFieldValue(field.name, color.hex, true)
         }} />} title="Title" trigger="click">
-            <CustomButton style={{margin:'10px 0'}} color={values[field.name]}>Choose color </CustomButton>
+            <CustomButton style={{margin:'10px 0'}} color={field.value}>Choose color </CustomButton>
         </Popover>
     </>
 }

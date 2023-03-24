@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
+import { Formik, Form, Field, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
@@ -49,27 +49,22 @@ const LoginForm: React.FC = () => {
         formikProps: FormikHelpers<LoginFormValues>) => handleSubmitForm(values, formikProps)
       }
     >
+      {(props: FormikProps<any>) => (
       <Form className='form'>
-        <Field
-          required={true}
-          className='form-item'
+        {/* <FormField
           label="Email Address"
           name="email"
           type="email"
-          placeholder="jane@formik.com"
-          component={FormField}
-        />
-        <Field
+          placeholder="jane@formik.com"/>
+        <FormField
           required={true}
-          className='form-item'
           label="Password"
           name="password"
           type="password"
-          placeholder="your pass"
-          component={FormField}
-        />
+          placeholder="your pass" /> */}
         <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
       </Form>
+      )}
     </Formik >
   )
 }

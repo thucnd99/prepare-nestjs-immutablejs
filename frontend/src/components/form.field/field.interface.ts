@@ -5,7 +5,7 @@ import { RadioData } from './radio/radio.interface';
 export interface CustomFieldProps {
     label?: string;
     required?: boolean;
-    // name: string;
+    name: string;
     type: string;
     placeholder?: string;
     dataToRender?: CheckboxData[] | CheckboxData | OptionData[] | RadioData[] | RadioData | any;
