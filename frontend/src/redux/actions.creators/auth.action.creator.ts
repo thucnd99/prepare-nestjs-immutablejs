@@ -1,8 +1,9 @@
 import * as authService from "../../services/auth.service";
 import { AuthActionType } from "../action.types/auth.action.types";
-import { AppDispatch } from "../store";
-export const login = (email: string, password: string) => 
-   async (dispatch: AppDispatch) => {
+import { AppDispatch, AppThunk } from "../store";
+
+export const login = (email: string, password: string): AppThunk => 
+   async (dispatch) => {
     const sendRequest = async () => {
       const response = await authService.login(email, password);
       if (!response.data) {

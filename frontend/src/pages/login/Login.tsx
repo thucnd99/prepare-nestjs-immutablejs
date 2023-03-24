@@ -8,13 +8,14 @@ import FormField from "../../components/form.field/FormField";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions.creators/auth.action.creator";
 import { RootState } from "../../redux/store";
+import { useAppDispatch } from "../../redux/hooks/hooks";
 
 interface LoginFormValues {
   email: string,
   password: string,
 }
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.get('isLoggedIn'))
   const navigate = useNavigate()
   useEffect(() => {
@@ -35,7 +36,7 @@ const LoginForm: React.FC = () => {
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
       const { setSubmitting } = formikProps;
-      dispatch<any>(login(values.email, values.password))
+      dispatch(login(values.email, values.password))
       setSubmitting(false);
   }
   return (
