@@ -14,4 +14,5 @@ export const store: Store<RootState, Action> & {
 )
 export type RootState = ReturnType<typeof reducers>
 export type AppDispatch = typeof store.dispatch
-export type AppThunk<ReturnType = Promise<void>> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
+export type AppThunk<ReturnType = (Promise<void> | void)> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
+// AppThunk<Promise<SomeReturnType>>

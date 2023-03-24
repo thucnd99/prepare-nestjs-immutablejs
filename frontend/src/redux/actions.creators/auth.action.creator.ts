@@ -23,8 +23,8 @@ export const login = (email: string, password: string): AppThunk =>
   };
 
 
-export const logout = () => {
-  return (dispatch: AppDispatch) => {
+export const logout = (): AppThunk => {
+  return (dispatch) => {
     try {
       dispatch({
         type: AuthActionType.LOGOUT,
