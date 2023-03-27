@@ -13,7 +13,6 @@ import { useAppDispatch } from "../../redux/hooks/hooks";
 interface LoginFormValues {
   email: string,
   password: string,
-  test: string
 }
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -26,7 +25,6 @@ const LoginForm: React.FC = () => {
   const initialValues = {
     email: '',
     password: '',
-    test: ''
   }
   const validate = Yup.object({
     email: Yup.string()
@@ -34,14 +32,12 @@ const LoginForm: React.FC = () => {
       .required('Email is required'),
     password: Yup.string()
       .required('Password is required'),
-    test: Yup.string().required('Test is required')
   })
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
-    // const { setSubmitting } = formikProps;
-    // dispatch(login(values.email, values.password))
-    // setSubmitting(false);
-    console.log(values)
+    const { setSubmitting } = formikProps;
+    dispatch(login(values.email, values.password))
+    setSubmitting(false);
   }
   return (
     <Formik
@@ -53,11 +49,8 @@ const LoginForm: React.FC = () => {
         formikProps: FormikHelpers<LoginFormValues>) => handleSubmitForm(values, formikProps)
       }
     >
-      {(form) => <Form className='form'>
-        <FormField label="Test"
-          name="test"
-          type="colorPicker"
-          placeholder="jane@formik.com" field={form.getFieldProps('test')} form={form} meta={form.getFieldMeta('test')} />
+      {(form) => (
+      <Form className='form'>
         <Field
           label="Email"
           name="email"
@@ -70,7 +63,7 @@ const LoginForm: React.FC = () => {
           placeholder="your pass" component={FormField} />
         <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
       </Form>
-      }
+      )}
     </Formik >
   )
 }

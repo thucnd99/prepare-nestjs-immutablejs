@@ -4,8 +4,6 @@ import { CustomFieldProps } from '../field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
 import { Popover } from 'antd';
-import FlexDisplay from '../flex.display/Flex.Display';
-import FormField from '../FormField';
 
 const ColorPicker: React.FC<FieldProps & CustomFieldProps> = ({
     ...props
