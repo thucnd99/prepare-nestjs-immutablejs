@@ -4,15 +4,14 @@ import { CustomFieldProps } from '../field.interface';
 import { OptionData } from './select.interface';
 
 const Select: React.FC<FieldProps & CustomFieldProps> = ({
-    field,
     ...props
 }) => {
     return <>
         <Field as='select' className="form-item"
-            {...field} {...props}
+            {...props}
             placeholder={props.placeholder}>
             {props.dataToRender.map((v: OptionData) =>
-                <option selected={field.value === v.value} value={v.value} >{v.display}</option>
+                <option selected={props.field.value === v.value} value={v.value} >{v.display}</option>
             )}
         </Field>
     </>

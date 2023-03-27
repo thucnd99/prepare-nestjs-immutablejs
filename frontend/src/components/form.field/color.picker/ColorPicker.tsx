@@ -1,20 +1,21 @@
-import { FieldProps } from 'formik';
-import React, {memo} from 'react';
+import { Field, FieldProps } from 'formik';
+import React, { memo } from 'react';
 import { CustomFieldProps } from '../field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
 import { Popover } from 'antd';
+import FlexDisplay from '../flex.display/Flex.Display';
+import FormField from '../FormField';
 
 const ColorPicker: React.FC<FieldProps & CustomFieldProps> = ({
-    field,
-    form: { touched, errors, values, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     ...props
 }) => {
     return <>
-        <Popover content={<SketchPicker color={field.value} onChange={(color, event) => {
-            setFieldValue(field.name, color.hex, true)
+        <Popover content={<SketchPicker color={props.field.value} onChange={(color, event) => {
+            props.form.setFieldValue(props.field.name, color.hex, true)
         }} />} title="Title" trigger="click">
-            <CustomButton style={{margin:'10px 0'}} color={field.value}>Choose color </CustomButton>
+            {props.field.value}
+            <CustomButton style={{ margin: '10px 0' }} color={props.field.value}>Choose color </CustomButton>
         </Popover>
     </>
 }

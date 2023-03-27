@@ -5,6 +5,7 @@ import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
 import { CheckBox, CheckBoxGroup, ColorPicker, CustomInput, Radio, RadioGroup, Select, TextArea } from ".";
 import { InputTypes } from "./InputType";
+import FlexDisplay from "./flex.display/Flex.Display";
 
 type InputType = typeof CheckBox |
     typeof CheckBoxGroup |
@@ -54,17 +55,12 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
     }
     return (
         <>
-            <div style={{
-                margin:"1em 0",
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end'
-            }}>
+            <FlexDisplay>
                 {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.field.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>
-            </div>
+            </FlexDisplay>
             {props.renderComponent ? props.renderComponent : renderComponent()}
             <ErrorMessage name={`${props.field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>

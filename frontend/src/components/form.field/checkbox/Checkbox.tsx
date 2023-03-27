@@ -3,16 +3,14 @@ import React, {memo} from "react";
 import { CustomFieldProps } from "../field.interface";
 
 const CheckBox: React.FC<FieldProps & CustomFieldProps> = ({
-    field,
-    form: { touched, errors, values, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
     ...props
 }) => {
     return <>
         <label>
-            <Field  {...field} {...props} type="checkbox"
-                name={field.name}
+            <Field  {...props} type="checkbox"
+                name={props.field.name}
                 value={props.dataToRender.value}
-                checked={field.value===props.dataToRender.value} />
+                checked={props.field.value===props.dataToRender.value} />
             {props.dataToRender.display}
         </label>
     </>

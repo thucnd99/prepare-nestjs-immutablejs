@@ -2,7 +2,6 @@ import './App.css';
 import LoginForm from './pages/login/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layout/Layout';
-import Logout from './pages/logout/Logout';
 import Home from './pages/home/Home';
 import RQRegisterForm from './pages/register/RQRegister';
 import RQProfile from './pages/profile/RQProfile';
@@ -14,7 +13,6 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<RQRegisterForm />} />
           <Route path="/profile" element={<RQProfile />} />
         </Route>
