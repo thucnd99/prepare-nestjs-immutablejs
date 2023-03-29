@@ -21,7 +21,6 @@ const ColorPicker: React.FC<CustomFieldProps&FieldInputProps<any>&FieldHelperPro
                         padding: `1em`,
                         width: '20%',
                         float: 'right',
-                        // margin: '10px 0',
                         borderRadius: '0px 10px 10px 0px',
                         boxSizing: 'border-box',
                         

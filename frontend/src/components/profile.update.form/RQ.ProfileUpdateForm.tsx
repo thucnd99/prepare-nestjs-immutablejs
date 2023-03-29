@@ -22,10 +22,31 @@ interface ProfileFormValues {
     feedPosts: FeedPost[],
     colorPicker: string,
 }
+const colorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
 
+const validate = Yup.object({
+    firstName: Yup.string()
+        .max(15, 'Must be 15 characters or less')
+        .required('First name is required'),
+    lastName: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .required('Last name is required'),
+    email: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+    password: Yup.string(),
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref('password')], 'Passwords must match'),
+    feedPosts: Yup.array().of(Yup.object().shape(
+        {
+            id: Yup.number(),
+            body: Yup.string().required('Body is required')
+        }
+    )),
+    colorPicker: Yup.string().matches(colorRegex, "Invalid color")
+})
 const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
     const userData = props.user
-    const colorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
     const queryClient = useQueryClient()
     const updateFormMutation = useMutation(updateProfile, {
         onSuccess(data, variables, context) {
@@ -59,27 +80,6 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         updateFormMutation.mutate(data);
         setSubmitting(false);
     }
-    const validate = Yup.object({
-        firstName: Yup.string()
-            .max(15, 'Must be 15 characters or less')
-            .required('First name is required'),
-        lastName: Yup.string()
-            .max(20, 'Must be 20 characters or less')
-            .required('Last name is required'),
-        email: Yup.string()
-            .email('Invalid email address')
-            .required('Email is required'),
-        password: Yup.string(),
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password')], 'Passwords must match'),
-        feedPosts: Yup.array().of(Yup.object().shape(
-            {
-                id: Yup.number(),
-                body: Yup.string().required('Body is required')
-            }
-        )),
-        colorPicker: Yup.string().matches(colorRegex, "Invalid color")
-    })
     return (
         <Formik
             initialValues={initialValues}
@@ -128,7 +128,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <FormField required={true} label="Color Picker" name="colorPicker"  type={InputTypes.COLORPICKER} />
+                    <FormField required={true} label="Color Picker" name="colorPicker" type={InputTypes.COLORPICKER} />
                     <div>
                         <CustomButton color='mediumseagreen' type="submit" >Submit</CustomButton>
                     </div>
