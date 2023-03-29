@@ -1,14 +1,14 @@
-import { Field, FieldProps } from 'formik';
+import { Field, FieldHelperProps, FieldInputProps } from 'formik';
 import React, { memo } from 'react';
 import { CustomFieldProps } from './field.interface';
 
-const Input: React.FC<FieldProps & CustomFieldProps> = ({
+const Input: React.FC<CustomFieldProps&FieldHelperProps<any>&FieldInputProps<any>> = ({
     ...props
 }) => {
     return <>
         <Field {...props}
             className="form-item"
-            name={props.field.name}
+            name={props.name}
             type={props.type}
             placeholder={props.placeholder}
         />

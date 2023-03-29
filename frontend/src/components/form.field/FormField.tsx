@@ -1,5 +1,4 @@
-import { ErrorMessage, FieldProps } from "formik";
-import React from "react";
+import { ErrorMessage, useField } from "formik";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import { CustomFieldProps } from "./field.interface";
 import "./FormField.scss"
@@ -16,10 +15,11 @@ type InputType = typeof CheckBox |
     typeof Select |
     typeof TextArea | null
 
-const FormField: React.FC<FieldProps & CustomFieldProps> = ({
+const FormField = ({
     type,
-    ...props
-}) => {
+   ...props
+}: CustomFieldProps) => {
+    const [field, meta, helper] = useField(props)
     const setInputType = (): InputType => {
         switch (type) {
             case InputTypes.TEXT: case InputTypes.EMAIL: case InputTypes.PASSWORD:
@@ -49,20 +49,20 @@ const FormField: React.FC<FieldProps & CustomFieldProps> = ({
             return props.renderComponent;
         if (Input != null)
             return <>
-                <Input {...props} type={type} />
+                <Input type={type} {...props} {...field} {...helper} />
             </>
         else <></>
     }
     return (
         <>
             <FlexDisplay>
-                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.field.name}>{props.label}</CustomFormLabel>}
+                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>
             </FlexDisplay>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            <ErrorMessage name={`${props.field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+            <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>
 
     );

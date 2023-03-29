@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useAppDispatch } from "../../redux/hooks/hooks";
 interface LoginFormValues {
   email: string,
   password: string,
+  color: string
 }
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,9 +23,10 @@ const LoginForm: React.FC = () => {
     if (isLoggedIn)
       navigate("/profile")
   }, [navigate, isLoggedIn])
-  const initialValues = {
+  const initialValues: LoginFormValues = {
     email: '',
     password: '',
+    color: '#000',
   }
   const validate = Yup.object({
     email: Yup.string()
@@ -32,6 +34,8 @@ const LoginForm: React.FC = () => {
       .required('Email is required'),
     password: Yup.string()
       .required('Password is required'),
+    color: Yup.string()
+      .required('Color is required'),
   })
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
@@ -45,25 +49,28 @@ const LoginForm: React.FC = () => {
       validationSchema={
         validate
       }
-      onSubmit={(values: LoginFormValues,
-        formikProps: FormikHelpers<LoginFormValues>) => handleSubmitForm(values, formikProps)
-      }
+      onSubmit={handleSubmitForm}
     >
-      {(form) => (
       <Form className='form'>
-        <Field
+        <FormField
+          required={true}
           label="Email"
           name="email"
           type="email"
-          placeholder="jane@formik.com" component={FormField} />
-        <Field
+          placeholder="jane@formik.com" />
+        <FormField
+          required={true}
           label="Password"
           name="password"
           type="password"
-          placeholder="your pass" component={FormField} />
-        <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
+          placeholder="your pass" />
+        <FormField
+          name="color"
+          type="colorPicker"
+          placeholder="your color" />
+        <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
       </Form>
-      )}
+
     </Formik >
   )
 }

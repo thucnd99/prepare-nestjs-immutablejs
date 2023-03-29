@@ -1,8 +1,8 @@
-import { FieldProps, Field } from "formik";
+import { Field, FieldInputProps, FieldHelperProps } from "formik";
 import React, {memo} from "react";
 import { CustomFieldProps } from "../field.interface";
 import { CheckboxData } from "./checkbox.interface";
-const CheckBoxGroup: React.FC<FieldProps & CustomFieldProps> = ({
+const CheckBoxGroup: React.FC<CustomFieldProps&FieldHelperProps<any>&FieldInputProps<any>> = ({
     ...props
 }) => {
     return <>
@@ -10,8 +10,8 @@ const CheckBoxGroup: React.FC<FieldProps & CustomFieldProps> = ({
             {props.dataToRender.map((item: CheckboxData) =>
                 <label>
                     <Field  {...props} type={props.type}
-                        name={props.field.name}
-                        checked={props.field.value.includes(item.value)}
+                        name={props.name}
+                        checked={props.value.includes(item.value)}
                         value={item.value} />
                     {item.display}
                 </label>

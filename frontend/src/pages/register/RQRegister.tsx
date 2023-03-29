@@ -110,7 +110,7 @@ const RQRegisterForm = () => {
                     placeholder="confirm your pass"
                     component={FormField}
                 />
-                <CustomButton color="mediumseagreen" htmlType="submit">Submit</CustomButton>
+                <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
             </Form>
         </Formik >
         </>

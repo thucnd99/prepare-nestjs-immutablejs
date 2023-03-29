@@ -1,6 +1,6 @@
 import { Button } from "antd"
 import styled from 'styled-components'
-const CustomButton = styled(Button)(props => ({
+const CustomButton = styled.button(props => ({
   fontsize: '1em',
   padding: '0.25em 1em',
   borderRadius: '10px',

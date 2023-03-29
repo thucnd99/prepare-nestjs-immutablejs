@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { CheckboxData } from './checkbox/checkbox.interface';
 import { OptionData } from './select/select.interface';
 import { RadioData } from './radio/radio.interface';
@@ -10,6 +10,6 @@ export interface CustomFieldProps {
     placeholder?: string;
     dataToRender?: CheckboxData[] | CheckboxData | OptionData[] | RadioData[] | RadioData | any;
     renderComponent?: React.ReactNode;
-    // onChange?: React.ChangeEventHandler;
     extra?: React.ReactNode;
+    style?: CSSProperties | undefined;
 }

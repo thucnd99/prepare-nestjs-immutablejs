@@ -1,6 +1,5 @@
 import React from "react"
-import { User } from "../../models/user/user.interface"
-import { Formik, FormikHelpers, FieldArray, Field, Form } from "formik"
+import { Formik, FormikHelpers, FieldArray, Form } from "formik"
 import * as Yup from "yup";
 import { FeedPost } from "../../models/post.interface";
 import { useMutation, useQueryClient } from "react-query";
@@ -90,11 +89,11 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         >
             {({ values }) => (
                 <Form className="form">
-                    <Field required={true} label="First Name" name="firstName" type="text" placeholder="Jane" component={FormField} />
-                    <Field required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" component={FormField} />
-                    <Field required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" component={FormField} />
-                    <Field label="Password" name="password" type="password" placeholder="your pass" component={FormField} />
-                    <Field label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" component={FormField} />
+                    <FormField required={true} label="First Name" name="firstName" type="text" placeholder="Jane" />
+                    <FormField required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" />
+                    <FormField required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" />
+                    <FormField label="Password" name="password" type="password" placeholder="your pass" />
+                    <FormField label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" />
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
@@ -102,15 +101,13 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                 {values.feedPosts.length > 0 &&
                                     values.feedPosts.map((post, index) => (
                                         <div className="row" key={index}>
-                                            <Field required={true}
+                                            <FormField required={true}
                                                 label="Body"
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
                                                 type="textarea"
-                                                component={FormField}
                                                 extra={<CustomButton
                                                     color="red"
-                                                    htmlType="button"
                                                     onClick={() => remove(index)}
                                                 >
                                                     X
@@ -121,7 +118,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
 
                                 <CustomButton
                                     color="mediumseagreen"
-                                    htmlType="button"
+                                    type="submit"
                                     onClick={() => push({ body: '' })}
                                 >
                                     Add Post
@@ -130,9 +127,9 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <Field required={true} label="Color Picker" name="colorPicker" type="colorPicker" component={FormField} />
+                    <FormField required={true} label="Color Picker" name="colorPicker" type="colorPicker" />
                     <div>
-                        <CustomButton color='mediumseagreen' htmlType="submit" >Submit</CustomButton>
+                        <CustomButton color='mediumseagreen' type="submit" >Submit</CustomButton>
                     </div>
                 </Form>
             )
