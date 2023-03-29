@@ -24,7 +24,7 @@ const RQRegisterForm = () => {
             console.log(err)
         }
     })
-    const initialValues = {
+    const initialValues: RegisterFormValues = {
         firstName: '',
         lastName: '',
         email: '',

@@ -34,7 +34,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
             console.log(error)
         },
     })
-    const initialValues = {
+    const initialValues: ProfileFormValues = {
         firstName: userData.firstName || '',
         lastName: userData.lastName || '',
         email: userData.email || '',
