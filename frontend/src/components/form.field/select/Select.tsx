@@ -1,13 +1,13 @@
-import { Field, FieldHelperProps, FieldInputProps } from 'formik';
+import { Field } from 'formik';
 import React, {memo} from 'react';
-import { CustomFieldProps } from '../field.interface';
+import { InputControlProps } from '../form.field.interface';
 import { OptionData } from './select.interface';
 
-const Select: React.FC<CustomFieldProps&FieldHelperProps<any>&FieldInputProps<any>> = ({
+const Select: React.FC<InputControlProps> = ({
     ...props
 }) => {
     return <>
-        <Field as='select' className="form-item"
+        <Field as={props.type} className="form-item"
             {...props}
             placeholder={props.placeholder}>
             {props.dataToRender.map((v: OptionData) =>

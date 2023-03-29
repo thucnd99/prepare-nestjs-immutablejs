@@ -1,12 +1,12 @@
 import { FieldHelperProps, FieldInputProps } from 'formik';
 import React, { memo } from 'react';
-import { CustomFieldProps } from '../field.interface';
+import { FieldControlProps, InputControlProps } from '../form.field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
 import { Popover } from 'antd';
 import Input from '../Input';
 
-const ColorPicker: React.FC<CustomFieldProps&FieldInputProps<any>&FieldHelperProps<any>> = ({
+const ColorPicker: React.FC<InputControlProps> = ({
     ...props
 }) => {
     return <>

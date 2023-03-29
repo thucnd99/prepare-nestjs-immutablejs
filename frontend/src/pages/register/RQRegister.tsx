@@ -74,35 +74,40 @@ const RQRegisterForm = () => {
                         required={true}
                         label="First Name"
                         name="firstName"
-                        type={InputTypes.TEXT}
+                        control={InputTypes.TEXT}
+                        type="text"
                         placeholder="Jane"
                     />
                     <FormField
                         required={true}
                         label="Last Name"
                         name="lastName"
-                        type={InputTypes.TEXT}
+                        control={InputTypes.TEXT}
+                        type="text"
                         placeholder="Doe"
                     />
                     <FormField
                         required={true}
                         label="Email Address"
                         name="email"
-                        type={InputTypes.EMAIL}
+                        control={InputTypes.EMAIL}
+                        type="email"
                         placeholder="jane@formik.com"
                     />
                     <FormField
                         required={true}
                         label="Password"
                         name="password"
-                        type={InputTypes.PASSWORD}
+                        control={InputTypes.PASSWORD}
+                        type="password"
                         placeholder="your pass"
                     />
                     <FormField
                         required={true}
                         label="Confirm password"
                         name="confirmPassword"
-                        type={InputTypes.PASSWORD}
+                        control={InputTypes.PASSWORD}
+                        type="password"
                         placeholder="confirm your pass"
                     />
                     <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>

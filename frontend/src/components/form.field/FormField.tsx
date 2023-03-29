@@ -1,6 +1,6 @@
 import { ErrorMessage, useField } from "formik";
 import CustomFormLabel from "../../themes/CustomFormLabel";
-import { CustomFieldProps } from "./field.interface";
+import { FieldControlProps } from "./form.field.interface";
 import "./FormField.scss"
 import { CheckBox, CheckBoxGroup, ColorPicker, CustomInput, Radio, RadioGroup, Select, TextArea } from ".";
 import { InputTypes } from "./InputType";
@@ -16,12 +16,12 @@ type InputType = typeof CheckBox |
     typeof TextArea | null
 
 const FormField = ({
-    type,
+    control,
    ...props
-}: CustomFieldProps) => {
+}: FieldControlProps) => {
     const [field, meta, helper] = useField(props)
     const setInputType = (): InputType => {
-        switch (type) {
+        switch (control) {
             case InputTypes.TEXT: case InputTypes.EMAIL: case InputTypes.PASSWORD:
                 return CustomInput;
             case InputTypes.SELECT:
@@ -45,11 +45,11 @@ const FormField = ({
     const Input: InputType = setInputType()
 
     const renderComponent = () => {
-        if (type === "custom")
+        if (control === "custom")
             return props.renderComponent;
         if (Input != null)
             return <>
-                <Input type={type} {...props} {...field} {...helper} />
+                <Input {...props} {...field} {...helper} />
             </>
         else <></>
     }

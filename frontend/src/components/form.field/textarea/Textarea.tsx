@@ -1,12 +1,12 @@
-import { Field, FieldHelperProps, FieldInputProps } from 'formik';
+import { Field } from 'formik';
 import React, {memo} from 'react';
-import { CustomFieldProps } from '../field.interface';
+import { InputControlProps } from '../form.field.interface';
 
-const TextArea: React.FC<CustomFieldProps&FieldInputProps<any>&FieldHelperProps<any>> = ({
+const TextArea: React.FC<InputControlProps> = ({
     ...props
 }) => {
     return <>
-        <Field as='textarea' {...props}
+        <Field as={props.type} {...props}
             className="form-item"
             name={props.name}
             placeholder={props.placeholder}

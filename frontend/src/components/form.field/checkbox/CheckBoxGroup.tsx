@@ -1,8 +1,8 @@
-import { Field, FieldInputProps, FieldHelperProps } from "formik";
+import { Field } from "formik";
 import React, {memo} from "react";
-import { CustomFieldProps } from "../field.interface";
+import { InputControlProps } from "../form.field.interface";
 import { CheckboxData } from "./checkbox.interface";
-const CheckBoxGroup: React.FC<CustomFieldProps&FieldHelperProps<any>&FieldInputProps<any>> = ({
+const CheckBoxGroup: React.FC<InputControlProps> = ({
     ...props
 }) => {
     return <>

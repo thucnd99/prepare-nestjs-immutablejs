@@ -59,19 +59,22 @@ const LoginForm: React.FC = () => {
           required={true}
           label="Email"
           name="email"
-          type={InputTypes.EMAIL}
+          control={InputTypes.EMAIL}
+          type="email"
           placeholder="jane@formik.com" />
         <FormField
           required={true}
           label="Password"
           name="password"
-          type={InputTypes.PASSWORD}
+          control={InputTypes.PASSWORD}
+          type="password"
           placeholder="your pass" />
         <FormField
           required={true}
           label="Color"
           name="color"
-          type={InputTypes.COLORPICKER}
+          control={InputTypes.COLORPICKER}
+          type="text"
           placeholder="your pass" />
         <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
       </Form>
