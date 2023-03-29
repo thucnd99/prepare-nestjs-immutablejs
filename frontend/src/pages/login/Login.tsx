@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik, Form, FormikHelpers, FormikProps } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import "./Login.scss"
 import { useNavigate } from "react-router-dom";
@@ -9,11 +9,11 @@ import { useSelector } from "react-redux";
 import { login } from "../../redux/actions.creators/auth.action.creator";
 import { RootState } from "../../redux/store";
 import { useAppDispatch } from "../../redux/hooks/hooks";
+import { InputTypes } from "../../components/form.field/InputType";
 
 interface LoginFormValues {
   email: string,
   password: string,
-  color: string
 }
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -26,7 +26,6 @@ const LoginForm: React.FC = () => {
   const initialValues: LoginFormValues = {
     email: '',
     password: '',
-    color: '#000',
   }
   const validate = Yup.object({
     email: Yup.string()
@@ -56,18 +55,14 @@ const LoginForm: React.FC = () => {
           required={true}
           label="Email"
           name="email"
-          type="email"
+          type={InputTypes.EMAIL}
           placeholder="jane@formik.com" />
         <FormField
           required={true}
           label="Password"
           name="password"
-          type="password"
+          type={InputTypes.PASSWORD}
           placeholder="your pass" />
-        <FormField
-          name="color"
-          type="colorPicker"
-          placeholder="your color" />
         <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
       </Form>
 

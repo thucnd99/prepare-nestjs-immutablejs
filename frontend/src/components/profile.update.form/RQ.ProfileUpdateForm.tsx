@@ -8,6 +8,7 @@ import CustomButton from "../../themes/CustomButton";
 import CustomFormLabel from "../../themes/CustomFormLabel";
 import FormField from "../form.field/FormField";
 import { UpdateUser } from "../../models/user/update.user.interface";
+import { InputTypes } from "../form.field/InputType";
 interface ProfileProps {
     user: UpdateUser
     // many many
@@ -89,11 +90,11 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         >
             {({ values }) => (
                 <Form className="form">
-                    <FormField required={true} label="First Name" name="firstName" type="text" placeholder="Jane" />
-                    <FormField required={true} label="Last Name" name="lastName" type="text" placeholder="Doe" />
-                    <FormField required={true} label="Email" name="email" type="email" placeholder="jane@formik.com" />
-                    <FormField label="Password" name="password" type="password" placeholder="your pass" />
-                    <FormField label="Confirm password" name="confirmPassword" type="password" placeholder="your pass" />
+                    <FormField required={true} label="First Name" name="firstName" type={InputTypes.TEXT} placeholder="Jane" />
+                    <FormField required={true} label="Last Name" name="lastName" type={InputTypes.TEXT} placeholder="Doe" />
+                    <FormField required={true} label="Email" name="email" type={InputTypes.EMAIL} placeholder="jane@formik.com" />
+                    <FormField label="Password" name="password" type={InputTypes.PASSWORD} placeholder="your pass" />
+                    <FormField label="Confirm password" name="confirmPassword" type={InputTypes.PASSWORD} placeholder="your pass" />
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
                     <FieldArray name="feedPosts">
                         {({ insert, remove, push }) => (
@@ -105,7 +106,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 label="Body"
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
-                                                type="textarea"
+                                                type={InputTypes.TEXTAREA}
                                                 extra={<CustomButton
                                                     color="red"
                                                     onClick={() => remove(index)}
@@ -127,7 +128,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <FormField required={true} label="Color Picker" name="colorPicker" type="colorPicker" />
+                    <FormField required={true} label="Color Picker" name="colorPicker"  type={InputTypes.COLORPICKER} />
                     <div>
                         <CustomButton color='mediumseagreen' type="submit" >Submit</CustomButton>
                     </div>

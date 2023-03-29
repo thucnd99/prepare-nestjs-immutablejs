@@ -6,6 +6,7 @@ import { useMutation } from 'react-query';
 import { register } from '../../services/auth.service'
 import CustomButton from '../../themes/CustomButton';
 import FormField from '../../components/form.field/FormField';
+import { InputTypes } from "../../components/form.field/InputType";
 interface RegisterFormValues {
     firstName: string,
     lastName: string,
@@ -70,45 +71,40 @@ const RQRegisterForm = () => {
             }
         >
             <Form className='form'>
-                <Field
+                <FormField
                     required={true}
                     label="First Name"
                     name="firstName"
-                    type="text"
+                    type={InputTypes.TEXT}
                     placeholder="Jane"
-                    component={FormField}
                 />
-                <Field
+                <FormField
                     required={true}
                     label="Last Name"
                     name="lastName"
-                    type="text"
+                    type={InputTypes.TEXT}
                     placeholder="Doe"
-                    component={FormField}
                 />
-                <Field
+                <FormField
                     required={true}
                     label="Email Address"
                     name="email"
-                    type="email"
+                    type={InputTypes.EMAIL}
                     placeholder="jane@formik.com"
-                    component={FormField}
                 />
-                <Field
+                <FormField
                     required={true}
                     label="Password"
                     name="password"
-                    type="password"
+                    type={InputTypes.PASSWORD}
                     placeholder="your pass"
-                    component={FormField}
                 />
-                <Field
+                <FormField
                     required={true}
                     label="Confirm password"
                     name="confirmPassword"
-                    type="password"
+                    type={InputTypes.PASSWORD}
                     placeholder="confirm your pass"
-                    component={FormField}
                 />
                 <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
             </Form>
