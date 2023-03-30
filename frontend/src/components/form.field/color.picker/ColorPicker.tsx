@@ -29,7 +29,6 @@ const ColorPicker: React.FC<FieldControlProps> = ({
                     float: 'right',
                     borderRadius: '0px 10px 10px 0px',
                     boxSizing: 'border-box',
-
                 }}
                 color={field.value}>Choose color </CustomButton>
         </Popover>
