@@ -1,9 +1,9 @@
 import { Field } from 'formik';
 import React, {memo} from 'react';
-import { InputControlProps } from '../form.field.interface';
+import { FieldControlProps } from '../form.field.interface';
 import { OptionData } from './select.interface';
 
-const Select: React.FC<InputControlProps> = ({
+const Select: React.FC<FieldControlProps> = ({
     ...props
 }) => {
     return <>

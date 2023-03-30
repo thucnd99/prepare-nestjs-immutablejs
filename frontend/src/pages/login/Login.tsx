@@ -79,7 +79,6 @@ const LoginForm: React.FC = () => {
           placeholder="your pass" />
         <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
       </Form>
-
     </Formik >
   )
 }

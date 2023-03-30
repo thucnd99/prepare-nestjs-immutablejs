@@ -1,24 +1,25 @@
 import React, { memo } from 'react';
-import { InputControlProps } from '../form.field.interface';
+import { FieldControlProps } from '../form.field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
 import { Popover } from 'antd';
 import Input from '../Input';
+import { useField } from 'formik';
 
-const ColorPicker: React.FC<InputControlProps> = ({
-    touched,
+const ColorPicker: React.FC<FieldControlProps> = ({
     ...props
 }) => {
-    const content = <SketchPicker color={props.value} onChange={(color, event) => {
-        props.setValue(color.hex)
+    const [field, meta, helper] = useField(props.name)
+    const content = <SketchPicker color={field.value} onChange={(color, event) => {
+        helper.setValue(color.hex)
     }} />
     const handleOpenAndTouched = (visible: boolean) => {
-        if (touched) return;
+        if (meta.touched) return;
         if(visible) return;
-        else props.setTouched(true);
+        else helper.setTouched(true);
     }
     return <>
-        <Input style={{ width: `80%`, float: 'left', borderRadius: '10px 0px 0px 10px', }} touched {...props} />
+        <Input style={{ width: `80%`, float: 'left', borderRadius: '10px 0px 0px 10px', }} {...props}/>
         <Popover trigger="click" onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
             <CustomButton
                 style={{
@@ -30,7 +31,7 @@ const ColorPicker: React.FC<InputControlProps> = ({
                     boxSizing: 'border-box',
 
                 }}
-                color={props.value}>Choose color </CustomButton>
+                color={field.value}>Choose color </CustomButton>
         </Popover>
     </>
 }

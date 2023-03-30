@@ -19,7 +19,6 @@ const FormField = ({
     control,
    ...props
 }: FieldControlProps) => {
-    const [field, meta, helper] = useField(props.name)
     const setInputType = (): InputType => {
         switch (control) {
             case InputTypes.TEXT: case InputTypes.EMAIL: case InputTypes.PASSWORD:
@@ -49,20 +48,20 @@ const FormField = ({
             return props.renderComponent;
         if (Input != null)
             return <>
-                <Input {...props} {...field} {...meta} {...helper} />
+                <Input {...props} />
             </>
         else <></>
     }
     return (
         <>
             <FlexDisplay>
-                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={field.name}>{props.label}</CustomFormLabel>}
+                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>
             </FlexDisplay>
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            <ErrorMessage name={`${field.name}`}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+            <ErrorMessage name={props.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
         </>
 
     );

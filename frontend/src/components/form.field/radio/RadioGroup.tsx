@@ -1,9 +1,9 @@
 import { Field } from 'formik';
 import React, {memo} from 'react';
-import { InputControlProps } from '../form.field.interface';
+import { FieldControlProps } from '../form.field.interface';
 import { RadioData } from './radio.interface';
 
-const RadioGroup: React.FC<InputControlProps> = ({
+const RadioGroup: React.FC<FieldControlProps> = ({
     ...props
 }) => {
     return <>
