@@ -15,12 +15,12 @@ const ColorPicker: React.FC<FieldControlProps> = ({
     }} />
     const handleOpenAndTouched = (visible: boolean) => {
         if (meta.touched) return;
-        if(visible) return;
+        if (visible) return;
         else helper.setTouched(true);
     }
     return <>
-        <Input style={{ width: `80%`, float: 'left', borderRadius: '10px 0px 0px 10px', }} {...props}/>
-        <Popover trigger="click" onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
+        <Input style={{ width: `80%`, float: 'left', borderRadius: '10px 0px 0px 10px', }} {...props} />
+        <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
             <CustomButton
                 style={{
                     height: '100%',
