@@ -27,6 +27,7 @@ const validate = Yup.object({
   color: Yup.string()
     .required('Color is required').matches(colorRegex, "Invalid color"),
 })
+
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.get('isLoggedIn'))

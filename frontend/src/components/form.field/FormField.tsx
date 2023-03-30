@@ -19,7 +19,7 @@ const FormField = ({
     control,
    ...props
 }: FieldControlProps) => {
-    const [field, meta, helper] = useField(props)
+    const [field, meta, helper] = useField(props.name)
     const setInputType = (): InputType => {
         switch (control) {
             case InputTypes.TEXT: case InputTypes.EMAIL: case InputTypes.PASSWORD:
@@ -49,10 +49,11 @@ const FormField = ({
             return props.renderComponent;
         if (Input != null)
             return <>
-                <Input {...props} {...field} {...helper} />
+                <Input {...props} {...field} {...meta} {...helper} />
             </>
         else <></>
     }
+    console.log(meta.touched)
     return (
         <>
             <FlexDisplay>
