@@ -53,7 +53,6 @@ const FormField = ({
             </>
         else <></>
     }
-    console.log(meta.touched)
     return (
         <>
             <FlexDisplay>
