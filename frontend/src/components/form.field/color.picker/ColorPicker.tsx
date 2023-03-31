@@ -19,16 +19,14 @@ const ColorPicker: React.FC<FieldControlProps> = ({
         else helper.setTouched(true);
     }
     return <>
-        <Input style={{ width: `80%`, float: 'left', borderRadius: '10px 0px 0px 10px', }} {...props} />
+        <Input style={{ width: `80%`, borderRadius: '10px 0px 0px 10px', }} {...props} />
         <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
             <CustomButton
                 style={{
                     height: '100%',
                     padding: `1em`,
                     width: '20%',
-                    float: 'right',
                     borderRadius: '0px 10px 10px 0px',
-                    boxSizing: 'border-box',
                 }}
                 color={field.value}>Choose color </CustomButton>
         </Popover>

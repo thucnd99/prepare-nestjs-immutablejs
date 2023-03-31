@@ -1,6 +1,6 @@
 import * as authService from "../../services/auth.service";
 import { AuthActionType } from "../action.types/auth.action.types";
-import { AppDispatch, AppThunk } from "../store";
+import { AppThunk } from "../store";
 
 export const login = (email: string, password: string): AppThunk => 
    async (dispatch) => {
