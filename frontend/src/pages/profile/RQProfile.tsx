@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button, Modal, Typography } from "antd"
 import { useQuery } from "react-query";
 import { viewProfile } from "../../services/auth.service";

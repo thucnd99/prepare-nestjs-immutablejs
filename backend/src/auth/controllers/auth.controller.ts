@@ -13,7 +13,6 @@ import { Roles } from '../decorators/roles.decorator';
 import { JwtGuard } from '../guards/jwt.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { Role } from '../models/role.enum';
-import { UpdateResult } from 'typeorm';
 
 @Controller('auth')
 export class AuthController {
