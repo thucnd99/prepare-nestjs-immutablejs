@@ -54,14 +54,14 @@ const FormField = ({
     }
     return (
         <>
-            <FlexDisplay>
-                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.name}>{props.label}</CustomFormLabel>}
+            {!props.justDisplayControl && <FlexDisplay>
+                {props.label && <CustomFormLabel aria-required={props.displayRequired} htmlFor={props.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>
-            </FlexDisplay>
+            </FlexDisplay>}
             {props.renderComponent ? props.renderComponent : renderComponent()}
-            <ErrorMessage name={props.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>
+            {!props.justDisplayControl && <ErrorMessage name={props.name}>{(msg) => <p className='error'>{msg}</p>}</ErrorMessage>}
         </>
 
     );

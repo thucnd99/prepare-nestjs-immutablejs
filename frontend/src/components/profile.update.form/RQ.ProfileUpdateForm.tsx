@@ -90,9 +90,9 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
         >
             {({ values }) => (
                 <Form className="form">
-                    <FormField required={true} label="First Name" name="firstName" control={InputTypes.TEXT} type="text" placeholder="Jane" />
-                    <FormField required={true} label="Last Name" name="lastName" control={InputTypes.TEXT} type="text" placeholder="Doe" />
-                    <FormField required={true} label="Email" name="email" control={InputTypes.EMAIL} type="email" placeholder="jane@formik.com" />
+                    <FormField displayRequired={true} label="First Name" name="firstName" control={InputTypes.TEXT} type="text" placeholder="Jane" />
+                    <FormField displayRequired={true} label="Last Name" name="lastName" control={InputTypes.TEXT} type="text" placeholder="Doe" />
+                    <FormField displayRequired={true} label="Email" name="email" control={InputTypes.EMAIL} type="email" placeholder="jane@formik.com" />
                     <FormField label="Password" name="password" control={InputTypes.PASSWORD} type="password" placeholder="your pass" />
                     <FormField label="Confirm password" name="confirmPassword" control={InputTypes.PASSWORD} type="password" placeholder="your pass" />
                     <CustomFormLabel htmlFor="feedPosts">Posts</CustomFormLabel>
@@ -102,7 +102,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                 {values.feedPosts.length > 0 &&
                                     values.feedPosts.map((post, index) => (
                                         <div className="row" key={index}>
-                                            <FormField required={true}
+                                            <FormField displayRequired={true}
                                                 label="Body"
                                                 name={`feedPosts.${index}.body`}
                                                 placeholder="Jane Doe"
@@ -129,7 +129,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                             </div>
                         )}
                     </FieldArray>
-                    <FormField required={true} label="Color Picker" name="colorPicker" control={InputTypes.COLORPICKER} type="text" />
+                    <FormField displayRequired={true} label="Color Picker" name="colorPicker" control={InputTypes.COLORPICKER} type="text" />
                     <div>
                         <CustomButton color='mediumseagreen' type="submit" >Submit</CustomButton>
                     </div>

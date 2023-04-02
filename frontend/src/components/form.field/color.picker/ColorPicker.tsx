@@ -3,8 +3,8 @@ import { FieldControlProps } from '../form.field.interface';
 import { SketchPicker } from 'react-color';
 import CustomButton from '../../../themes/CustomButton';
 import { Popover } from 'antd';
-import Input from '../Input';
 import { useField } from 'formik';
+import FormField from '../FormField';
 
 const ColorPicker: React.FC<FieldControlProps> = ({
     ...props
@@ -19,7 +19,7 @@ const ColorPicker: React.FC<FieldControlProps> = ({
         else helper.setTouched(true);
     }
     return <>
-        <Input style={{ width: `80%`, borderRadius: '10px 0px 0px 10px', }} {...props} />
+        <FormField style={{ width: `80%`, borderRadius: '10px 0px 0px 10px', }} justDisplayControl={true} control={props.type} {...props} />
         <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
             <CustomButton
                 style={{

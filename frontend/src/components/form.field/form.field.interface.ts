@@ -5,12 +5,12 @@ import { RadioData } from './radio/radio.interface';
 import { FieldAttributes } from 'formik';
 export interface FieldControlProps extends FieldAttributes<any> {
     label?: string;
-    required?: boolean;
-    name: string;
+    displayRequired?: boolean;
     control?: string;
     type?: string;
     placeholder?: string;
     dataToRender?: CheckboxData[] | CheckboxData | OptionData[] | RadioData[] | RadioData | any;
     renderComponent?: React.ReactNode;
     extra?: React.ReactNode;
+    justDisplayControl?: boolean;
 }
