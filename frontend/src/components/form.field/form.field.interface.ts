@@ -6,6 +6,7 @@ import { FieldAttributes } from 'formik';
 export interface FieldControlProps extends FieldAttributes<any> {
     label?: string;
     displayRequired?: boolean;
+    name: string;
     control?: string;
     type?: string;
     placeholder?: string;

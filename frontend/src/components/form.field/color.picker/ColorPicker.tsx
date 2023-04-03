@@ -18,19 +18,23 @@ const ColorPicker: React.FC<FieldControlProps> = ({
         if (visible) return;
         else helper.setTouched(true);
     }
-    return <>
-        <FormField style={{ width: `80%`, borderRadius: '10px 0px 0px 10px', }} justDisplayControl={true} control={props.type} {...props} />
-        <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} title="Title">
+    return <div>
+        <FormField style={{
+            minWidth: '50%', width: 'auto',
+            borderRadius: '10px 0px 0px 10px'}} {...props} />
+        <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} trigger={'click'}>
             <CustomButton
                 style={{
                     height: '100%',
                     padding: `1em`,
-                    width: '20%',
+                    minWidth: '20%',
+                    width: 'fit-content',
                     borderRadius: '0px 10px 10px 0px',
                 }}
+                type="button"
                 color={field.value}>Choose color </CustomButton>
         </Popover>
-    </>
+    </div>
 }
 
 export default memo(ColorPicker);
