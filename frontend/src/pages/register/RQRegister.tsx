@@ -71,7 +71,7 @@ const RQRegisterForm = () => {
             >
                 <Form className='form'>
                     <FormField
-                        required={true}
+                        displayRequired={true}
                         label="First Name"
                         name="firstName"
                         control={InputTypes.TEXT}
@@ -79,7 +79,7 @@ const RQRegisterForm = () => {
                         placeholder="Jane"
                     />
                     <FormField
-                        required={true}
+                        displayRequired={true}
                         label="Last Name"
                         name="lastName"
                         control={InputTypes.TEXT}
@@ -87,7 +87,7 @@ const RQRegisterForm = () => {
                         placeholder="Doe"
                     />
                     <FormField
-                        required={true}
+                        displayRequired={true}
                         label="Email Address"
                         name="email"
                         control={InputTypes.EMAIL}
@@ -95,7 +95,7 @@ const RQRegisterForm = () => {
                         placeholder="jane@formik.com"
                     />
                     <FormField
-                        required={true}
+                        displayRequired={true}
                         label="Password"
                         name="password"
                         control={InputTypes.PASSWORD}
@@ -103,7 +103,7 @@ const RQRegisterForm = () => {
                         placeholder="your pass"
                     />
                     <FormField
-                        required={true}
+                        displayRequired={true}
                         label="Confirm password"
                         name="confirmPassword"
                         control={InputTypes.PASSWORD}

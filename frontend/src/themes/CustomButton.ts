@@ -8,6 +8,7 @@ const CustomButton = styled.button(props => ({
   border: `2px solid ${props.color}`,
   backgroundColor: 'white',
   boxSizing: 'border-box',
+  whiteSpace:'normal'
 
 }));
 

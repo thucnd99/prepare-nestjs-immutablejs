@@ -55,7 +55,7 @@ const FormField = ({
     return (
         <>
             <FlexDisplay>
-                {props.label && <CustomFormLabel aria-required={props.required} htmlFor={props.name}>{props.label}</CustomFormLabel>}
+                {props.label && <CustomFormLabel aria-required={props.displayRequired} htmlFor={props.name}>{props.label}</CustomFormLabel>}
                 <div>
                     {props.extra}
                 </div>

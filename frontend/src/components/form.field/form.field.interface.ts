@@ -5,7 +5,7 @@ import { RadioData } from './radio/radio.interface';
 import { FieldAttributes } from 'formik';
 export interface FieldControlProps extends FieldAttributes<any> {
     label?: string;
-    required?: boolean;
+    displayRequired?: boolean;
     name: string;
     control?: string;
     type?: string;

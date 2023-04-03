@@ -34,7 +34,7 @@ const RQProfile: React.FC = () => {
             <Paragraph>{user.firstName}</Paragraph>
             <Paragraph>{user.lastName}</Paragraph>
             <Paragraph>{user.email}</Paragraph>
-            <Modal
+            <Modal style={{ width:"80%" }}
                 title="Update profile"
                 open={open}
                 onOk={() => setOpen(false)}
