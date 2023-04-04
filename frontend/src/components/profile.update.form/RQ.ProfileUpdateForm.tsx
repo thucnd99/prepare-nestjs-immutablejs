@@ -110,6 +110,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
                                                 type="textarea"
                                                 extra={<CustomButton
                                                     color="red"
+                                                    type="button"
                                                     onClick={() => remove(index)}
                                                 >
                                                     X
@@ -120,7 +121,7 @@ const RQProfileUpdateForm: React.FC<ProfileProps> = (props: ProfileProps) => {
 
                                 <CustomButton
                                     color="mediumseagreen"
-                                    type="submit"
+                                    type="button"
                                     onClick={() => push({ body: '' })}
                                 >
                                     Add Post

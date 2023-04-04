@@ -21,7 +21,7 @@ const ColorPicker: React.FC<FieldControlProps> = ({
     return <div>
         <FormField style={{
             minWidth: '50%', width: 'auto',
-            borderRadius: '10px 0px 0px 10px'}} {...props} />
+            borderRadius: '10px 0px 0px 10px'}} justDisplayControl={true} control={props.type} type={props.type} {...props} />
         <Popover onOpenChange={(v) => handleOpenAndTouched(v)} content={content} trigger={'click'}>
             <CustomButton
                 style={{
