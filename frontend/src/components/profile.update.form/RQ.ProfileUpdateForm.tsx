@@ -35,8 +35,11 @@ const validate = Yup.object({
         .email('Invalid email address')
         .required('Email is required'),
     password: Yup.string(),
-    confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords must match'),
+    confirmPassword: Yup.string().when('password', (password, schema) => {
+        if (password[0])
+            return schema.required('Remember confirm password').oneOf([Yup.ref('password')], 'Passwords must match')
+        return schema
+    }),
     feedPosts: Yup.array().of(Yup.object().shape(
         {
             id: Yup.number(),
