@@ -14,9 +14,7 @@ import { InputTypes } from "../../components/form.field/InputType";
 interface LoginFormValues {
   email: string,
   password: string,
-  color: string
 }
-const colorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/
 
 const validate = Yup.object({
   email: Yup.string()
@@ -24,8 +22,6 @@ const validate = Yup.object({
     .required('Email is required'),
   password: Yup.string()
     .required('Password is required'),
-  color: Yup.string()
-    .required('Color is required').matches(colorRegex, "Invalid color"),
 })
 
 const LoginForm: React.FC = () => {
@@ -39,7 +35,6 @@ const LoginForm: React.FC = () => {
   const initialValues: LoginFormValues = {
     email: '',
     password: '',
-    color: '',
   }
   const handleSubmitForm = (values: LoginFormValues,
     formikProps: FormikHelpers<LoginFormValues>) => {
@@ -69,13 +64,6 @@ const LoginForm: React.FC = () => {
           name="password"
           control={InputTypes.PASSWORD}
           type="password"
-          placeholder="your pass" />
-        <FormField
-          displayRequired={true}
-          label="Color"
-          name="color"
-          control={InputTypes.COLORPICKER}
-          type="text"
           placeholder="your pass" />
         <CustomButton color="mediumseagreen" type="submit">Submit</CustomButton>
       </Form>
