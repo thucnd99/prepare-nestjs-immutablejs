@@ -26,7 +26,7 @@ const validate = Yup.object({
         .required('Email is required'),
     password: Yup.string()
         .required('Password is required'),
-    confirmPassword: Yup.string()
+    confirmPassword: Yup.string().required('Remember confirm password')
         .oneOf([Yup.ref('password')], 'Passwords must match')
 })
 const RQRegisterForm = () => {

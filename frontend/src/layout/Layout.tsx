@@ -34,6 +34,7 @@ const MainLayout: React.FC = () => {
                                     <Link to="/profile">Profile</Link>
                                 </Button>
                                 <Button type="primary" onClick={() => onLogout()}>
+                                    Logout
                                 </Button>
                             </>
                             :

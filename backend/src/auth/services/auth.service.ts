@@ -64,7 +64,7 @@ export class AuthService {
       switchMap((user: User) => {
         if (user) {
           return from(this.jwtService.signAsync({ user }));
-        }
+        } else throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }),
     );
   }
